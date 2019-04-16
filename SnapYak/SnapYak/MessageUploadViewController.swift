@@ -36,8 +36,8 @@ class MessageUploadViewController: UIViewController {
         
         let textField = UITextField(frame: someFrame)
         textField.placeholder = "placeholderText"
-        textField.backgroundColor=#colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
         self.view.addSubview(textField)
+        textField.becomeFirstResponder()
     }
  
     
