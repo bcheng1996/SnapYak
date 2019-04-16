@@ -7,3 +7,18 @@
 //
 
 import Foundation
+
+
+
+
+
+class Message {
+    
+    // Initialize as firebase snapshot
+    init() {
+        
+    }
+    
+}
+
+

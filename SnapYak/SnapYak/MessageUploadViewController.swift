@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class MessageUploadViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class MessageUploadViewController: UIViewController {
 
     @IBOutlet weak var uploadButtonOutlet: UIButton!
     @IBAction func uploadButtonAction(_ sender: Any) {
@@ -23,9 +23,23 @@ class MessageUploadViewController: UIViewController, UINavigationControllerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        imageOutlet.isUserInteractionEnabled = true;
+        let tap = UITapGestureRecognizer(target: self, action: #selector(wasTapped))
+        self.imageOutlet.addGestureRecognizer(tap)
+    
         // Do any additional setup after loading the view.
     }
+    
+    @objc func wasTapped(sender: UITapGestureRecognizer) {
+        print("tapped")
+        let someFrame = CGRect(x: sender.location(in: self.view).x, y: sender.location(in: self.view).y, width: 100.0, height: 30.0)
+        
+        let textField = UITextField(frame: someFrame)
+        textField.placeholder = "placeholderText"
+        textField.backgroundColor=#colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
+        self.view.addSubview(textField)
+    }
+ 
     
 
     /*
@@ -39,7 +53,7 @@ class MessageUploadViewController: UIViewController, UINavigationControllerDeleg
     */
 }
 
-extension MessageUploadViewController {
+extension MessageUploadViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
         
@@ -52,3 +66,11 @@ extension MessageUploadViewController {
         imageOutlet.image = image
     }
 }
+
+extension MessageUploadViewController: UITextFieldDelegate {
+    
+}
+
+
+
+
