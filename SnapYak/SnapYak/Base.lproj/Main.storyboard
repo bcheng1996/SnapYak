@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sZa-ie-OMD">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SnapYak" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -19,6 +23,57 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Message Upload View Controller-->
+        <scene sceneID="btv-Gg-f2e">
+            <objects>
+                <viewController storyboardIdentifier="MessageUploadViewController" id="sZa-ie-OMD" customClass="MessageUploadViewController" customModule="SnapYak" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kL9-si-4D4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0db-Qn-xBv">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BGG-B7-GlZ">
+                                <rect key="frame" x="305" y="595" width="30" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="▶">
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="uploadButtonAction:" destination="sZa-ie-OMD" eventType="touchUpInside" id="23l-nt-vZu"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Caption" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H9g-DZ-Hcp">
+                                <rect key="frame" x="31" y="540" width="313" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="H9g-DZ-Hcp" firstAttribute="centerX" secondItem="OUa-dc-lYr" secondAttribute="centerX" id="0bM-Pr-iYb"/>
+                            <constraint firstItem="OUa-dc-lYr" firstAttribute="bottom" secondItem="BGG-B7-GlZ" secondAttribute="bottom" constant="30" id="1VK-fn-xMd"/>
+                            <constraint firstItem="0db-Qn-xBv" firstAttribute="leading" secondItem="OUa-dc-lYr" secondAttribute="leading" id="2zD-8S-HGH"/>
+                            <constraint firstItem="0db-Qn-xBv" firstAttribute="top" secondItem="kL9-si-4D4" secondAttribute="top" id="7kR-DR-vV5"/>
+                            <constraint firstItem="OUa-dc-lYr" firstAttribute="trailing" secondItem="BGG-B7-GlZ" secondAttribute="trailing" constant="40" id="INr-Di-zUR"/>
+                            <constraint firstItem="0db-Qn-xBv" firstAttribute="trailing" secondItem="OUa-dc-lYr" secondAttribute="trailing" id="JWs-sy-eTZ"/>
+                            <constraint firstItem="0db-Qn-xBv" firstAttribute="bottom" secondItem="kL9-si-4D4" secondAttribute="bottom" id="LMa-OR-dlB"/>
+                            <constraint firstItem="H9g-DZ-Hcp" firstAttribute="leading" secondItem="OUa-dc-lYr" secondAttribute="leading" constant="31" id="LfS-xI-Hmn"/>
+                            <constraint firstItem="BGG-B7-GlZ" firstAttribute="top" secondItem="H9g-DZ-Hcp" secondAttribute="bottom" constant="25" id="iuQ-sv-m7A"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="OUa-dc-lYr"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageOutlet" destination="0db-Qn-xBv" id="gal-9V-RCp"/>
+                        <outlet property="uploadButtonOutlet" destination="BGG-B7-GlZ" id="frg-Oj-zBs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LF7-V5-c4q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1461.5999999999999" y="55.322338830584712"/>
         </scene>
     </scenes>
 </document>
