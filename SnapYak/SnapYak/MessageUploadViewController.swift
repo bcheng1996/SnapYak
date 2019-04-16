@@ -12,12 +12,27 @@ import Photos
 class MessageUploadViewController: UIViewController {
 
     @IBOutlet weak var uploadButtonOutlet: UIButton!
+    
+    // Saves View as Image to user's document, will need to change to Firebase Cloud Storage
     @IBAction func uploadButtonAction(_ sender: Any) {
-        let vc = UIImagePickerController()
-        vc.sourceType = .photoLibrary
-        vc.allowsEditing = true
-        vc.delegate = self
-        present(vc, animated: true)
+        let image = UIImage(view: self.imageOutlet)
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        // choose a name for your image
+        let fileName = "image3.jpg"
+        // create the destination file url to save your image
+        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+        // get your UIImage jpeg data representation and check if the destination file url already exists
+        if let data = image.jpegData(compressionQuality:  1.0),
+            !FileManager.default.fileExists(atPath: fileURL.path) {
+            do {
+                // writes the image data to disk
+                try data.write(to: fileURL)
+                print("file saved" + fileURL.absoluteString)
+                
+            } catch {
+                print("error saving file:", error)
+            }
+        }
     }
     @IBOutlet weak var imageOutlet: UIImageView!
     
@@ -36,12 +51,19 @@ class MessageUploadViewController: UIViewController {
         
         let textField = UITextField(frame: someFrame)
         textField.placeholder = "placeholderText"
-        self.view.addSubview(textField)
+        self.imageOutlet.addSubview(textField)
         textField.becomeFirstResponder()
     }
  
     
-
+    @IBAction func uploadAction(_ sender: UIButton) {
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.allowsEditing = true
+        vc.delegate = self
+        present(vc, animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -72,5 +94,13 @@ extension MessageUploadViewController: UITextFieldDelegate {
 }
 
 
-
-
+// Converts UIView to an Image
+extension UIImage {
+    convenience init(view: UIView) {
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.layer.render(in:UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        self.init(cgImage: image!.cgImage!)
+    }
+}
