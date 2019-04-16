@@ -53,6 +53,7 @@ class MessageUploadViewController: UIViewController {
         textField.placeholder = "placeholderText"
         self.imageOutlet.addSubview(textField)
         textField.becomeFirstResponder()
+        textField.delegate = self
     }
  
     
@@ -62,6 +63,7 @@ class MessageUploadViewController: UIViewController {
         vc.allowsEditing = true
         vc.delegate = self
         present(vc, animated: true)
+        
     }
     
     /*
@@ -90,6 +92,10 @@ extension MessageUploadViewController: UINavigationControllerDelegate, UIImagePi
 }
 
 extension MessageUploadViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
 }
 
