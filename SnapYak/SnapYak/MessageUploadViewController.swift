@@ -2,7 +2,7 @@
 //  MessageUploadViewController.swift
 //  SnapYak
 //
-//  Created by Brian Guevara on 4/15/19.
+//  Created by Benny Cheng on 4/22/19.
 //  Copyright © 2019 group34. All rights reserved.
 //
 
