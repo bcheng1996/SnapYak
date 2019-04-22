@@ -9,11 +9,18 @@
 import UIKit
 
 class MessageViewController: UIViewController {
+    @IBOutlet var messageLabel: UILabel!
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var closeButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func closeViewController(){
+        self.dismiss(animated: true, completion: nil)
     }
     
 
