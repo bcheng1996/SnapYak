@@ -45,5 +45,9 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>SnapYak would like to use your camera</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>SnapYak would like to use your location when using the app</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Snapyak would like to use your location</string>
 </dict>
 </plist>

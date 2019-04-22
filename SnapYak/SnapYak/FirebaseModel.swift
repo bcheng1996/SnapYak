@@ -14,9 +14,20 @@ class Database {
     var db: Firestore!
     
     init() {
-        let settings = FirestoreSettings()
-        Firestore.firestore().settings = settings
         db = Firestore.firestore()
+    }
+    
+    
+    public func uploadYak(yak: Yak) {
+        var ref:DocumentReference? = nil
+        ref = self.db.collection("Yaks").addDocument(data: yak.dictionary) {
+            error in
+            if let error = error {
+                print("Error adding document: \(error.localizedDescription)")
+            } else {
+                print("Document added with ID: \(ref!.documentID)")
+            }
+        }
     }
 }
 
