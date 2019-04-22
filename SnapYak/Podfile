@@ -6,10 +6,9 @@ target 'SnapYak' do
   use_frameworks!
 
   # Pods for SnapYak
-
-end
 pod 'Firebase/Core'
 pod 'Firebase/Storage'
 pod 'Firebase/Auth'
-
+pod 'Firebase/Firestore'
+end
 

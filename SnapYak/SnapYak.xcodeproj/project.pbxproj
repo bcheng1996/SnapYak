@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51A1DBC1226E247300F0F291 /* FirebaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A1DBC0226E247300F0F291 /* FirebaseViewController.swift */; };
+		51A1DBC5226E2C9800F0F291 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A1DBC4226E2C9800F0F291 /* GoogleService-Info.plist */; };
+		51A1DBC7226E39CE00F0F291 /* Yak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A1DBC6226E39CE00F0F291 /* Yak.swift */; };
 		AB84871E226511AC007E1862 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84871D226511AC007E1862 /* AppDelegate.swift */; };
 		AB848720226511AC007E1862 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84871F226511AC007E1862 /* ViewController.swift */; };
 		AB848723226511AC007E1862 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB848721226511AC007E1862 /* Main.storyboard */; };
@@ -21,6 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		51A1DBC0226E247300F0F291 /* FirebaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseViewController.swift; sourceTree = "<group>"; };
+		51A1DBC4226E2C9800F0F291 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		51A1DBC6226E39CE00F0F291 /* Yak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yak.swift; sourceTree = "<group>"; };
 		754CE545E207E8A1625EA7A8 /* Pods_SnapYak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapYak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76BC0ED491B1077191A5206B /* Pods-SnapYak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapYak.debug.xcconfig"; path = "Target Support Files/Pods-SnapYak/Pods-SnapYak.debug.xcconfig"; sourceTree = "<group>"; };
 		8228D69C125DEFD676937BD3 /* Pods-SnapYak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapYak.release.xcconfig"; path = "Target Support Files/Pods-SnapYak/Pods-SnapYak.release.xcconfig"; sourceTree = "<group>"; };
@@ -82,6 +88,9 @@
 				AB84871D226511AC007E1862 /* AppDelegate.swift */,
 				AB84871F226511AC007E1862 /* ViewController.swift */,
 				AB848721226511AC007E1862 /* Main.storyboard */,
+				51A1DBC0226E247300F0F291 /* FirebaseViewController.swift */,
+				51A1DBC6226E39CE00F0F291 /* Yak.swift */,
+				51A1DBC4226E2C9800F0F291 /* GoogleService-Info.plist */,
 				AB848724226511AD007E1862 /* Assets.xcassets */,
 				AB848726226511AD007E1862 /* LaunchScreen.storyboard */,
 				AB848729226511AD007E1862 /* Info.plist */,
@@ -100,7 +109,6 @@
 				76BC0ED491B1077191A5206B /* Pods-SnapYak.debug.xcconfig */,
 				8228D69C125DEFD676937BD3 /* Pods-SnapYak.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -165,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB848728226511AD007E1862 /* LaunchScreen.storyboard in Resources */,
+				51A1DBC5226E2C9800F0F291 /* GoogleService-Info.plist in Resources */,
 				AB848725226511AD007E1862 /* Assets.xcassets in Resources */,
 				AB848723226511AC007E1862 /* Main.storyboard in Resources */,
 			);
@@ -204,16 +213,26 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SnapYak/Pods-SnapYak-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,6 +254,8 @@
 				AB848732226512A2007E1862 /* MapViewController.swift in Sources */,
 				AB8487342265131E007E1862 /* MessageViewController.swift in Sources */,
 				AB8487382265135D007E1862 /* FirebaseModel.swift in Sources */,
+				51A1DBC7226E39CE00F0F291 /* Yak.swift in Sources */,
+				51A1DBC1226E247300F0F291 /* FirebaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
