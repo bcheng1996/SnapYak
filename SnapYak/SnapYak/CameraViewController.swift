@@ -66,7 +66,7 @@ class CameraViewController: UIViewController {
         captureButton.clipsToBounds = true
         captureButton.addTarget(self, action: #selector(captureImage), for: .touchUpInside)
         
-        	        
+        		        
     }
     
     @objc func captureImage() {
