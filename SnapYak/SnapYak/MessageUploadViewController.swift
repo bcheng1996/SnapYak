@@ -16,12 +16,16 @@ class MessageUploadViewController: UIViewController {
     var storage: Storage!
     var db: Database!
     
+    var takenPhoto: UIImage?
     var locManager = CLLocationManager()
     var currentLocation: CLLocation!
     
     @IBOutlet weak var uploadButtonOutlet: UIButton!
     @IBOutlet weak var imageOutlet: UIImageView!
     
+    @IBAction func goBack(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
     // Saves View as Image to user's document, will need to change to Firebase Cloud Storage
     @IBAction func uploadButtonAction(_ sender: Any) {
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
@@ -70,7 +74,22 @@ class MessageUploadViewController: UIViewController {
         storage = Storage.storage()
         db = Database()
         locManager.delegate = self
-       
+        
+        if let takenPhoto = takenPhoto {
+            imageOutlet.image = takenPhoto
+        }
+        
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
+            locManager.requestLocation()
+        }else{
+            locManager.requestWhenInUseAuthorization()
+        }
+        
+        let vc = UIImagePickerController()
+        vc.sourceType = .camera
+        vc.allowsEditing = true
+        vc.delegate = self
+        present(vc, animated: true)
     }
     
     @objc func wasTapped(sender: UITapGestureRecognizer) {

@@ -1,7 +1,102 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.59" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1uo-ag-y3M">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.45"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--Camera-->
+        <scene sceneID="Mol-hi-57b">
+            <objects>
+                <viewController id="1uo-ag-y3M" customClass="CameraViewController" customModule="SnapYak" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ab3-Jc-2jS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dvy-th-bR8">
+                                <rect key="frame" x="183.5" y="698" width="47" height="79"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="56"/>
+                                <state key="normal" title="○">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Cv8-Dr-Hge" firstAttribute="bottom" secondItem="Dvy-th-bR8" secondAttribute="bottom" constant="36" id="E1I-ok-MJf"/>
+                            <constraint firstItem="Dvy-th-bR8" firstAttribute="centerX" secondItem="Cv8-Dr-Hge" secondAttribute="centerX" id="EDZ-1b-3Mt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Cv8-Dr-Hge"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Camera" id="CWZ-s5-lft"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Ab-UT-J04" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1136" y="107"/>
+        </scene>
+        <!--Yak-->
+        <scene sceneID="LXN-0n-RBS">
+            <objects>
+                <viewController storyboardIdentifier="MessageUploadViewController" id="nK3-dr-exW" customClass="MessageUploadViewController" customModule="SnapYak" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Upy-nf-mGu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKP-fS-zRq">
+                                <rect key="frame" x="47" y="753" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="uploadAction:" destination="nK3-dr-exW" eventType="touchUpInside" id="geT-eC-RgN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNi-gY-wxP">
+                                <rect key="frame" x="330" y="753" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="uploadButtonAction:" destination="nK3-dr-exW" eventType="touchUpInside" id="RDn-rD-Qhm"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QlP-fr-HIj">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jmT-lK-tQy">
+                                <rect key="frame" x="20" y="49" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="goBack:" destination="nK3-dr-exW" eventType="touchUpInside" id="gqN-ND-NlS"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gNi-gY-wxP" firstAttribute="top" secondItem="QlP-fr-HIj" secondAttribute="bottom" constant="-143" id="48x-Y2-Eqw"/>
+                            <constraint firstAttribute="bottom" secondItem="QlP-fr-HIj" secondAttribute="bottom" id="7zI-Rh-TBI"/>
+                            <constraint firstItem="jmT-lK-tQy" firstAttribute="leading" secondItem="rzF-uk-teV" secondAttribute="leading" constant="20" id="Uej-vB-tf3"/>
+                            <constraint firstItem="jmT-lK-tQy" firstAttribute="top" secondItem="rzF-uk-teV" secondAttribute="top" constant="5" id="e0h-yV-kh6"/>
+                            <constraint firstItem="QlP-fr-HIj" firstAttribute="trailing" secondItem="rzF-uk-teV" secondAttribute="trailing" id="oRd-ef-Ww3"/>
+                            <constraint firstItem="rzF-uk-teV" firstAttribute="trailing" secondItem="gNi-gY-wxP" secondAttribute="trailing" constant="38" id="ofL-EL-Hip"/>
+                            <constraint firstItem="QlP-fr-HIj" firstAttribute="top" secondItem="Upy-nf-mGu" secondAttribute="top" id="wM5-q0-e65"/>
+                            <constraint firstItem="QlP-fr-HIj" firstAttribute="leading" secondItem="rzF-uk-teV" secondAttribute="leading" id="wuf-EJ-g98"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="rzF-uk-teV"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Yak" id="00j-6E-D1r"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="imageOutlet" destination="QlP-fr-HIj" id="jzb-x3-daR"/>
+                        <outlet property="uploadButtonOutlet" destination="lKP-fS-zRq" id="qB9-wM-NIo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3LQ-nG-j3b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-204.34782608695653" y="111.16071428571428"/>
+        </scene>
+    </scenes>
 </document>
