@@ -69,7 +69,7 @@ class MessageUploadViewController: UIViewController {
         self.imageOutlet.addGestureRecognizer(tap)
         storage = Storage.storage()
         db = Database()
-       locManager.delegate = self
+        locManager.delegate = self
        
     }
     
