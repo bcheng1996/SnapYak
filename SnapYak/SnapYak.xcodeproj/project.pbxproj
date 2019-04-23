@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		71254DF896D72567B049E292 /* Pods_SnapYak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A48FC5444C24AFECFA9540DF /* Pods_SnapYak.framework */; };
+		AB17D067226E8CF800C1FBA5 /* Yak.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB17D066226E8CF700C1FBA5 /* Yak.swift */; };
 		AB46CCC7226D3B9800FB64D9 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB46CCC6226D3B9800FB64D9 /* MessageCell.swift */; };
 		AB84871E226511AC007E1862 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84871D226511AC007E1862 /* AppDelegate.swift */; };
 		AB848720226511AC007E1862 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84871F226511AC007E1862 /* ViewController.swift */; };
@@ -21,6 +23,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3DB89F70A578823552E44463 /* Pods-SnapYak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapYak.debug.xcconfig"; path = "Target Support Files/Pods-SnapYak/Pods-SnapYak.debug.xcconfig"; sourceTree = "<group>"; };
+		8759574C1E27EE179FD18853 /* Pods-SnapYak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapYak.release.xcconfig"; path = "Target Support Files/Pods-SnapYak/Pods-SnapYak.release.xcconfig"; sourceTree = "<group>"; };
+		A48FC5444C24AFECFA9540DF /* Pods_SnapYak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapYak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB17D066226E8CF700C1FBA5 /* Yak.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Yak.swift; sourceTree = "<group>"; };
 		AB46CCC6226D3B9800FB64D9 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		AB84871A226511AB007E1862 /* SnapYak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnapYak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB84871D226511AC007E1862 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71254DF896D72567B049E292 /* Pods_SnapYak.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +59,8 @@
 			children = (
 				AB84871C226511AB007E1862 /* SnapYak */,
 				AB84871B226511AB007E1862 /* Products */,
+				EF79109B5749FD2FC4422E06 /* Pods */,
+				F4A829E07D76E8CC408540FA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,8 +87,26 @@
 				AB84873522651335007E1862 /* MessageUploadViewController.swift */,
 				AB8487372265135D007E1862 /* FirebaseModel.swift */,
 				AB46CCC6226D3B9800FB64D9 /* MessageCell.swift */,
+				AB17D066226E8CF700C1FBA5 /* Yak.swift */,
 			);
 			path = SnapYak;
+			sourceTree = "<group>";
+		};
+		EF79109B5749FD2FC4422E06 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3DB89F70A578823552E44463 /* Pods-SnapYak.debug.xcconfig */,
+				8759574C1E27EE179FD18853 /* Pods-SnapYak.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F4A829E07D76E8CC408540FA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A48FC5444C24AFECFA9540DF /* Pods_SnapYak.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -89,9 +116,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB84872C226511AD007E1862 /* Build configuration list for PBXNativeTarget "SnapYak" */;
 			buildPhases = (
+				254BA3C85572578A8F831B05 /* [CP] Check Pods Manifest.lock */,
 				AB848716226511AB007E1862 /* Sources */,
 				AB848717226511AB007E1862 /* Frameworks */,
 				AB848718226511AB007E1862 /* Resources */,
+				44E1D8CD57E02168EA17179C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -148,6 +177,67 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		254BA3C85572578A8F831B05 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SnapYak-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		44E1D8CD57E02168EA17179C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SnapYak/Pods-SnapYak-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SnapYak/Pods-SnapYak-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AB848716226511AB007E1862 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -160,6 +250,7 @@
 				AB84873622651335007E1862 /* MessageUploadViewController.swift in Sources */,
 				AB848732226512A2007E1862 /* MapViewController.swift in Sources */,
 				AB8487342265131E007E1862 /* MessageViewController.swift in Sources */,
+				AB17D067226E8CF800C1FBA5 /* Yak.swift in Sources */,
 				AB8487382265135D007E1862 /* FirebaseModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,6 +395,7 @@
 		};
 		AB84872D226511AD007E1862 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3DB89F70A578823552E44463 /* Pods-SnapYak.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -322,6 +414,7 @@
 		};
 		AB84872E226511AD007E1862 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8759574C1E27EE179FD18853 /* Pods-SnapYak.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
