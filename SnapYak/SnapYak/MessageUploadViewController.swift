@@ -19,6 +19,10 @@ class MessageUploadViewController: UIViewController {
     var takenPhoto: UIImage?
     var locManager = CLLocationManager()
     var currentLocation: CLLocation!
+    var capturedIamge: UIImage!
+    var textFields: [UITextField] = []
+    var previousTextFieldY: CGFloat?
+    var keyboardIsVisible: Bool = false
     
     @IBOutlet weak var uploadButtonOutlet: UIButton!
     @IBOutlet weak var imageOutlet: UIImageView!
@@ -27,6 +31,60 @@ class MessageUploadViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     // Saves View as Image to user's document, will need to change to Firebase Cloud Storage
+   
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        imageOutlet.isUserInteractionEnabled = true;
+        imageOutlet.image = capturedIamge
+        let tap = UITapGestureRecognizer(target: self, action: #selector(wasTapped))
+        self.imageOutlet.addGestureRecognizer(tap)
+        storage = Storage.storage()
+        db = Database()
+        locManager.delegate = self
+        
+        if let takenPhoto = takenPhoto {
+            imageOutlet.image = takenPhoto
+        }
+        
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
+            locManager.requestLocation()
+        }else{
+            locManager.requestWhenInUseAuthorization()
+        }
+    }
+    
+    @objc func wasTapped(sender: UITapGestureRecognizer) {
+        if(!keyboardIsVisible){
+            let someFrame = CGRect(x: 0, y: sender.location(in: self.view).y, width: self.view.frame.width, height: 30.0)
+
+            let textField = UITextField(frame: someFrame)
+            self.imageOutlet.addSubview(textField)
+            textFields.append(textField)
+            previousTextFieldY = sender.location(in: self.view).y
+            textField.becomeFirstResponder()
+            textField.delegate = self
+        }else{
+            self.view.endEditing(true)
+        }
+    }
+
+    private func generateUniqueFilename (myFileName: String) -> String {
+        
+        let guid = ProcessInfo.processInfo.globallyUniqueString
+        let uniqueFileName = ("\(myFileName)_\(guid)")
+        
+        print("uniqueFileName: \(uniqueFileName)")
+        
+        return uniqueFileName
+    }
+    
+    
     @IBAction func uploadButtonAction(_ sender: Any) {
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
             locManager.requestLocation()
@@ -64,91 +122,38 @@ class MessageUploadViewController: UIViewController {
             }
         }
     }
-
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        imageOutlet.isUserInteractionEnabled = true;
-        let tap = UITapGestureRecognizer(target: self, action: #selector(wasTapped))
-        self.imageOutlet.addGestureRecognizer(tap)
-        storage = Storage.storage()
-        db = Database()
-        locManager.delegate = self
-        
-        if let takenPhoto = takenPhoto {
-            imageOutlet.image = takenPhoto
+    @objc func keyboardWillShow(notification:NSNotification) {
+        self.keyboardIsVisible = true
+        if let info = notification.userInfo {
+            let rect = info["UIKeyboardFrameEndUserInfoKey"] as! CGRect
+            
+            let targetY  = view.frame.size.height - rect.height - 40
+            if let textField = self.textFields.last{
+                textField.frame.origin.y = targetY
+                textField.backgroundColor = #colorLiteral(red: 0.1841630342, green: 0.1981908197, blue: 0.2178189767, alpha: 0.6)
+                textField.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                textField.becomeFirstResponder()
+                textField.delegate = self
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        self.keyboardIsVisible = false
+        if let textField = textFields.last {
+            textField.frame.origin.y = previousTextFieldY!
         }
         
-        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
-            locManager.requestLocation()
-        }else{
-            locManager.requestWhenInUseAuthorization()
-        }
-        
-        let vc = UIImagePickerController()
-        vc.sourceType = .camera
-        vc.allowsEditing = true
-        vc.delegate = self
-        present(vc, animated: true)
     }
     
-    @objc func wasTapped(sender: UITapGestureRecognizer) {
-        print("tapped")
-        let someFrame = CGRect(x: sender.location(in: self.view).x, y: sender.location(in: self.view).y, width: 100.0, height: 30.0)
-        
-        let textField = UITextField(frame: someFrame)
-        textField.placeholder = "placeholderText"
-        self.imageOutlet.addSubview(textField)
-        textField.becomeFirstResponder()
-        textField.delegate = self
-    }
- 
-    
-    @IBAction func uploadAction(_ sender: UIButton) {
-        let vc = UIImagePickerController()
-        vc.sourceType = .photoLibrary
-        vc.allowsEditing = true
-        vc.delegate = self
-        present(vc, animated: true)
-        
-    }
-    
-    private func generateUniqueFilename (myFileName: String) -> String {
-        
-        let guid = ProcessInfo.processInfo.globallyUniqueString
-        let uniqueFileName = ("\(myFileName)_\(guid)")
-        
-        print("uniqueFileName: \(uniqueFileName)")
-        
-        return uniqueFileName
-    }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if(segue.identifier == "showCameraView") {
+        }
     }
-    */
+    
 }
 
-// Delegate for UIImagePicker
-extension MessageUploadViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true)
-        
-        guard let image = info[.editedImage] as? UIImage else {
-            print("No image found")
-            return
-        }
-        
-        // print out the image size as a test
-        imageOutlet.image = image
-    }
-}
 
 // Delegate for UITextField
 extension MessageUploadViewController: UITextFieldDelegate {
@@ -156,8 +161,14 @@ extension MessageUploadViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        textField.invalidateIntrinsicContentSize()
+        return true
+    }
 }
 
+// Delegate for CoreLocations
 extension MessageUploadViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locations.first
