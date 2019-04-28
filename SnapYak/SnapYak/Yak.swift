@@ -35,9 +35,9 @@ extension Yak : DocumentSerializable {
         guard let user_id = dictionary["user_id"] as? String,
             let image_url = dictionary["image_url"] as? String,
             let location = dictionary["location"] as? GeoPoint,
-            let time_stamp = dictionary["time_stamp"] as? Date
+            let time_stamp = dictionary["time_stamp"] as? Timestamp
             else{return nil}
-        self.init(user_id: user_id, image_url: image_url, location: location, time_stamp: time_stamp)
+        self.init(user_id: user_id, image_url: image_url, location: location, time_stamp: time_stamp.dateValue())
     }
 }
 

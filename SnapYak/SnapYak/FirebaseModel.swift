@@ -9,12 +9,15 @@
 import Foundation
 
 import Firebase
+import CoreLocation
 
 class Database {
     var db: Firestore!
+    var storageRef: StorageReference!
     
     init() {
         db = Firestore.firestore()
+        storageRef = Storage.storage().reference()
     }
     
     
@@ -26,6 +29,83 @@ class Database {
                 print("Error adding document: \(error.localizedDescription)")
             } else {
                 print("Document added with ID: \(ref!.documentID)")
+            }
+        }
+    }
+    
+    public func fetchImage(imageURL: String, completion: ((Data) -> ())?) {
+        // check if the image is a firebase resoruce or http resource
+        if imageURL.contains("http"){
+            let resource = URL(string: imageURL)
+            
+            if let targetURL = resource {
+                let task = URLSession.shared.dataTask(with: targetURL) { (data, response, error) in
+                    if error != nil {
+                        print("Error Fetching HTTP image data")
+                    } else {
+                        if let imageData = data {
+                            if completion != nil {
+                                completion!(imageData)
+                            }
+                        }
+                    }
+                }
+                task.resume()
+            }
+        }
+        else {
+            // It is a firebase storage image
+            let fbStoragePathRef = storageRef.child("images/\(imageURL)")
+            
+            fbStoragePathRef.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
+                if error != nil {
+                    print("Error downloading image from Firebase Storage")
+                } else {
+                    if let imageData = data {
+                        if completion != nil {
+                            completion!(imageData)
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    // Fetches the yaks within a certain radius. Returns the yaks through an optional
+    // completion handler
+    public func fetchYaks(currentLocation: CLLocation, radius: Double, completion: (([Yak]) -> ())?){
+        var result: [Yak] = []
+        
+        // Collect all Yaks
+        self.db.collection("Yaks").getDocuments { (rawSnapshot, error) in
+            if error != nil {
+                print("Error fetching yaks, check connection")
+            } else {
+                if let snapshot = rawSnapshot {
+                    // Filter Yaks one by one
+                    for doc in snapshot.documents {
+                        let rawYak = doc.data()
+                        let coordinate = rawYak["location"] as! GeoPoint
+                        let lat: CLLocationDegrees = coordinate.latitude
+                        let long: CLLocationDegrees = coordinate.longitude
+                        let location = CLLocation(latitude: lat, longitude: long)
+                        
+                        // If this yak is within radius add it to results
+                        let dist = location.distance(from: currentLocation)
+                        if (dist <= radius){
+                            let yak = Yak(dictionary: rawYak)
+                            
+                            if let parsedYak = yak {
+                                result.append(parsedYak)
+                            }
+                        }
+                        
+                    }
+                    if completion != nil {
+                        completion!(result)
+                    }
+                }
             }
         }
     }

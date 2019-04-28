@@ -24,6 +24,7 @@
 		AB8487342265131E007E1862 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8487332265131E007E1862 /* MessageViewController.swift */; };
 		AB84873622651335007E1862 /* MessageUploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84873522651335007E1862 /* MessageUploadViewController.swift */; };
 		AB8487382265135D007E1862 /* FirebaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8487372265135D007E1862 /* FirebaseModel.swift */; };
+		AB925FAC2274E5FB004E166C /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB925FAB2274E5FB004E166C /* CameraController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		AB8487332265131E007E1862 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		AB84873522651335007E1862 /* MessageUploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageUploadViewController.swift; sourceTree = "<group>"; };
 		AB8487372265135D007E1862 /* FirebaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseModel.swift; sourceTree = "<group>"; };
+		AB925FAB2274E5FB004E166C /* CameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 		AB84871C226511AB007E1862 /* SnapYak */ = {
 			isa = PBXGroup;
 			children = (
+				AB925FAB2274E5FB004E166C /* CameraController.swift */,
 				AB84871D226511AC007E1862 /* AppDelegate.swift */,
 				AB84871F226511AC007E1862 /* ViewController.swift */,
 				AB848721226511AC007E1862 /* List.storyboard */,
@@ -264,6 +267,7 @@
 				AB84871E226511AC007E1862 /* AppDelegate.swift in Sources */,
 				AB8487302265128F007E1862 /* MessagesListViewController.swift in Sources */,
 				AB84873622651335007E1862 /* MessageUploadViewController.swift in Sources */,
+				AB925FAC2274E5FB004E166C /* CameraController.swift in Sources */,
 				AB848732226512A2007E1862 /* MapViewController.swift in Sources */,
 				AB8487342265131E007E1862 /* MessageViewController.swift in Sources */,
 				AB17D067226E8CF800C1FBA5 /* Yak.swift in Sources */,

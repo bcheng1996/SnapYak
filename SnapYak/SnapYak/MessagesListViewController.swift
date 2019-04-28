@@ -7,18 +7,36 @@
 //
 
 import UIKit
+import CoreLocation
+import Firebase
 
-class MessagesListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MessagesListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet var tableView: UITableView!
-    var messages: [String]! // This will be where our message data is held
+    let radius: Double = 5000
+    var messages: [Yak]! // This will be where our message data is held
+    var locManager: CLLocationManager!
+    var db: Database!
+    var storage: StorageReference!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.messages = ["Test1", "Test2", "Test3"]
+        
+        self.messages = []
+        self.locManager = CLLocationManager()
+        self.locManager.delegate = self
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.db = Database()
+        
+        self.locManager.requestLocation()
+        
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
+            locManager.requestLocation()
+        } else{
+            locManager.requestWhenInUseAuthorization()
+        }
         
         // TODO: Retrieve messages from server or file
     }
@@ -28,14 +46,11 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         // Display it in another VC
         let data = messages[indexPath.row]
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "messageViewController") as! MessageViewController
+        newVC.yak = data
         
         self.present(newVC, animated: true) {
             // Once the view returns from presenting, unselect the row that was
             // previously selected
-            
-            // TODO: retrieve image data from server
-            newVC.messageLabel.text = data
-            newVC.imageView.backgroundColor = UIColor.black
             self.tableView.deselectRow(at: indexPath, animated: true)
         }
     }
@@ -48,11 +63,23 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "messageCell") as! MessageCell
-        cell.headlineLabel.text = self.messages[indexPath.row]
+        cell.headlineLabel.text = self.messages[indexPath.row].image_url
         cell.usernameLabel.text = "TODO: ADD USERNAME DATA"
         cell.votesLabel.text = "TODO: ADD VOTES DATA"
         
         return cell
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        db.fetchYaks(currentLocation: locations.first!, radius: self.radius) { (yaks) in
+            self.messages = yaks
+            self.tableView.reloadData()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        return
     }
     
 
