@@ -18,7 +18,7 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
     var locManager: CLLocationManager!
     var db: Database!
     var storage: StorageReference!
-    
+    var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +29,11 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.db = Database()
+        self.refresher = UIRefreshControl()
+        self.tableView.addSubview(refresher)
+        refresher.attributedTitle = NSAttributedString(string: "Pull to Refresh")
+        refresher.tintColor = UIColor(red: 1.00, green: 0.20, blue: 0.50, alpha: 1.0)
+        refresher.addTarget(self, action: #selector(checkForNewYaks), for: .valueChanged)
         
         self.locManager.requestLocation()
         
@@ -39,6 +44,18 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         }
         
         // TODO: Retrieve messages from server or file
+    }
+    
+    @objc func checkForNewYaks() {
+        if let loc = self.locManager.location {
+            db.fetchYaks(currentLocation: loc, radius: self.radius) { (yaks) in
+                self.messages = yaks
+                self.tableView.reloadData()
+                self.refresher.endRefreshing()
+            }
+        } else {
+            self.refresher.endRefreshing()
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
