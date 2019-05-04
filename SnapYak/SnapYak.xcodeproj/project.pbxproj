@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60BF07E8227E3E6300F16721 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BF07E7227E3E6300F16721 /* ModalViewController.swift */; };
+		60EF0C4622765E0F00DEEB08 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60EF0C4522765E0F00DEEB08 /* Map.storyboard */; };
 		71254DF896D72567B049E292 /* Pods_SnapYak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A48FC5444C24AFECFA9540DF /* Pods_SnapYak.framework */; };
 		9A0435C1226EA8A2009430AA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0435C0226EA8A2009430AA /* CameraViewController.swift */; };
 		9A077B4E226E930400F6A273 /* MessageUpload.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A077B4D226E930400F6A273 /* MessageUpload.storyboard */; };
@@ -29,6 +31,8 @@
 
 /* Begin PBXFileReference section */
 		3DB89F70A578823552E44463 /* Pods-SnapYak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapYak.debug.xcconfig"; path = "Target Support Files/Pods-SnapYak/Pods-SnapYak.debug.xcconfig"; sourceTree = "<group>"; };
+		60BF07E7227E3E6300F16721 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		60EF0C4522765E0F00DEEB08 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		8759574C1E27EE179FD18853 /* Pods-SnapYak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapYak.release.xcconfig"; path = "Target Support Files/Pods-SnapYak/Pods-SnapYak.release.xcconfig"; sourceTree = "<group>"; };
 		9A0435C0226EA8A2009430AA /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		9A077B4D226E930400F6A273 /* MessageUpload.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MessageUpload.storyboard; sourceTree = "<group>"; };
@@ -95,11 +99,13 @@
 				AB848726226511AD007E1862 /* LaunchScreen.storyboard */,
 				AB848729226511AD007E1862 /* Info.plist */,
 				AB84872F2265128F007E1862 /* MessagesListViewController.swift */,
+				60BF07E7227E3E6300F16721 /* ModalViewController.swift */,
 				AB848731226512A2007E1862 /* MapViewController.swift */,
 				AB8487332265131E007E1862 /* MessageViewController.swift */,
 				AB84873522651335007E1862 /* MessageUploadViewController.swift */,
 				9A0435C0226EA8A2009430AA /* CameraViewController.swift */,
 				9A077B53226E95CD00F6A273 /* Main.storyboard */,
+				60EF0C4522765E0F00DEEB08 /* Map.storyboard */,
 				AB8487372265135D007E1862 /* FirebaseModel.swift */,
 				AB46CCC6226D3B9800FB64D9 /* MessageCell.swift */,
 				AB17D066226E8CF700C1FBA5 /* Yak.swift */,
@@ -185,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A077B54226E95CD00F6A273 /* Main.storyboard in Resources */,
+				60EF0C4622765E0F00DEEB08 /* Map.storyboard in Resources */,
 				AB848728226511AD007E1862 /* LaunchScreen.storyboard in Resources */,
 				9A077B4E226E930400F6A273 /* MessageUpload.storyboard in Resources */,
 				9A077B52226E951700F6A273 /* GoogleService-Info.plist in Resources */,
@@ -265,6 +272,7 @@
 				9A0435C1226EA8A2009430AA /* CameraViewController.swift in Sources */,
 				AB46CCC7226D3B9800FB64D9 /* MessageCell.swift in Sources */,
 				AB84871E226511AC007E1862 /* AppDelegate.swift in Sources */,
+				60BF07E8227E3E6300F16721 /* ModalViewController.swift in Sources */,
 				AB8487302265128F007E1862 /* MessagesListViewController.swift in Sources */,
 				AB84873622651335007E1862 /* MessageUploadViewController.swift in Sources */,
 				AB925FAC2274E5FB004E166C /* CameraController.swift in Sources */,
@@ -419,7 +427,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FZ64HQ5AA3;
+				DEVELOPMENT_TEAM = HV4B5F752N;
 				INFOPLIST_FILE = SnapYak/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -439,7 +447,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FZ64HQ5AA3;
+				DEVELOPMENT_TEAM = HV4B5F752N;
 				INFOPLIST_FILE = SnapYak/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
