@@ -18,7 +18,14 @@ class MessageUploadViewController: UIViewController {
     
     var takenPhoto: UIImage?
     var locManager = CLLocationManager()
-    var currentLocation: CLLocation!
+    var currentLocation: CLLocation! {
+        didSet {
+            if(self.currentLocation != nil) {
+                self.sendButton.isEnabled = true
+                self.sendButton.setTitleColor(#colorLiteral(red: 0.1725490196, green: 0.6156862745, blue: 0.8980392157, alpha: 1), for: .normal)
+            }
+        }
+    }
     var capturedIamge: UIImage!
     var textFields: [UITextField] = []
     var previousTextFieldY: CGFloat?
@@ -32,10 +39,15 @@ class MessageUploadViewController: UIViewController {
     }
     // Saves View as Image to user's document, will need to change to Firebase Cloud Storage
    
-
+    @IBOutlet weak var sendButton: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("VIEW LOADED!!!!!")
+        self.sendButton.isEnabled = false
+        self.sendButton.setTitleColor(UIColor.gray, for: .normal)
+        self.navigationController?.isNavigationBarHidden = true
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
          NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -116,6 +128,7 @@ class MessageUploadViewController: UIViewController {
                     }
                 }
                 print("file saved" + fileURL.absoluteString)
+                self.dismiss(animated: true, completion: nil)
                 
             } catch {
                 print("error saving file:", error)
@@ -141,10 +154,16 @@ class MessageUploadViewController: UIViewController {
     
     @objc func keyboardWillHide(notification: NSNotification) {
         self.keyboardIsVisible = false
-        if let textField = textFields.last {
+        if let textField = textFields.last, textField.text != ""{
             textField.frame.origin.y = previousTextFieldY!
+            textField.textAlignment = .center
         }
         
+        if let textField = textFields.last {
+            if(textField.text == ""){
+                textField.isHidden = true
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

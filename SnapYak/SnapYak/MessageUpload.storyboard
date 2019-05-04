@@ -10,6 +10,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Main-->
+        <scene sceneID="IsB-r4-vC2">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" id="0dH-3D-VQa" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WfU-f2-Dvb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1657" y="172"/>
+        </scene>
         <!--Camera-->
         <scene sceneID="Mol-hi-57b">
             <objects>
@@ -31,9 +39,21 @@
                                             <action selector="captureButtonAction:" destination="1uo-ag-y3M" eventType="touchUpInside" id="4y2-4x-bFq"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lyc-As-2N5">
+                                        <rect key="frame" x="58" y="720" width="33" height="55"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                        <state key="normal" title="☰">
+                                            <color key="titleColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="toListViewAction:" destination="1uo-ag-y3M" eventType="touchUpInside" id="STq-aP-INC"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="lyc-As-2N5" firstAttribute="firstBaseline" secondItem="Dvy-th-bR8" secondAttribute="firstBaseline" constant="-15" id="ayX-pH-m9i"/>
+                                    <constraint firstItem="Dvy-th-bR8" firstAttribute="leading" secondItem="lyc-As-2N5" secondAttribute="trailing" constant="75" id="dKV-oh-fAA"/>
                                     <constraint firstItem="Dvy-th-bR8" firstAttribute="centerX" secondItem="DII-re-Fum" secondAttribute="centerX" id="iQ5-7P-RbP"/>
                                 </constraints>
                             </view>
@@ -73,7 +93,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xyH-4k-aOW">
                                 <rect key="frame" x="313" y="773" width="54" height="89"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="64"/>
-                                <state key="normal" title="➥"/>
+                                <state key="normal" title="➥">
+                                    <color key="titleColor" red="0.17254901960784313" green="0.61568627450980395" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="uploadButtonAction:" destination="6Bf-Z1-cR3" eventType="touchUpInside" id="a98-EN-cdf"/>
                                 </connections>
@@ -85,6 +107,7 @@
                                     <color key="titleColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="goBack:" destination="6Bf-Z1-cR3" eventType="touchUpInside" id="v53-2J-wfi"/>
                                     <segue destination="1uo-ag-y3M" kind="show" identifier="showCameraView" id="h5F-Ek-eE6"/>
                                 </connections>
                             </button>
@@ -102,8 +125,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zHo-48-7Qn"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Da1-hR-4wi"/>
                     <connections>
                         <outlet property="imageOutlet" destination="iNw-OL-gRe" id="ciz-k0-gQ2"/>
+                        <outlet property="sendButton" destination="xyH-4k-aOW" id="oLv-pP-TJY"/>
                         <outlet property="uploadButtonOutlet" destination="xyH-4k-aOW" id="P3f-l4-KsQ"/>
                     </connections>
                 </viewController>
