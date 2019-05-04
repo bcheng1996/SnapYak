@@ -30,6 +30,8 @@ class MessageUploadViewController: UIViewController {
     var textFields: [UITextField] = []
     var previousTextFieldY: CGFloat?
     var keyboardIsVisible: Bool = false
+    let textColors: [UIColor] = [#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), #colorLiteral(red: 0.1725490196, green: 0.6156862745, blue: 0.8980392157, alpha: 1)]
+    var currentTextColor: UIColor!
     
     @IBOutlet weak var uploadButtonOutlet: UIButton!
     @IBOutlet weak var imageOutlet: UIImageView!
@@ -40,12 +42,14 @@ class MessageUploadViewController: UIViewController {
     // Saves View as Image to user's document, will need to change to Firebase Cloud Storage
    
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet var textColorButtons: [UIButton]!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("VIEW LOADED!!!!!")
+        self.loadColorButtons()
         self.sendButton.isEnabled = false
+        self.currentTextColor = textColors[0]
         self.sendButton.setTitleColor(UIColor.gray, for: .normal)
         self.navigationController?.isNavigationBarHidden = true
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -77,6 +81,7 @@ class MessageUploadViewController: UIViewController {
 
             let textField = UITextField(frame: someFrame)
             self.imageOutlet.addSubview(textField)
+            textField.textColor = currentTextColor
             textFields.append(textField)
             previousTextFieldY = sender.location(in: self.view).y
             textField.becomeFirstResponder()
@@ -96,6 +101,59 @@ class MessageUploadViewController: UIViewController {
         return uniqueFileName
     }
     
+    private func loadColorButtons() {
+        var count = 0
+        for button in self.textColorButtons {
+            button.frame.size = CGSize(width: 50, height: 50)
+            button.layer.cornerRadius = 10
+            button.setTitle("", for: .normal)
+            switch(count){
+            case 0:
+                button.backgroundColor = textColors[0]
+                button.tag = 0
+                button.addTarget(self, action: #selector(self.setTextColorAction(_:)), for: .touchUpInside)
+            case 1:
+                button.backgroundColor = textColors[1]
+                button.tag = 1
+                button.addTarget(self, action: #selector(self.setTextColorAction(_:)), for: .touchUpInside)
+            case 2:
+                button.backgroundColor = textColors[2]
+                button.tag = 2
+                button.addTarget(self, action: #selector(self.setTextColorAction(_:)), for: .touchUpInside)
+            case 3:
+                button.backgroundColor = textColors[3]
+                button.tag = 3
+                button.addTarget(self, action: #selector(self.setTextColorAction(_:)), for: .touchUpInside)
+                
+            
+            default:
+                button.backgroundColor = textColors[3]
+                button.tag = 4
+                button.addTarget(self, action: #selector(self.setTextColorAction(_:)), for: .touchUpInside)
+            }
+            count+=1
+        }
+    }
+    
+    
+    @objc func setTextColorAction(_ sender: UIButton) {
+        switch(sender.tag) {
+        case 0:
+            currentTextColor = textColors[0]
+        case 1:
+            currentTextColor = textColors[1]
+        case 2:
+            currentTextColor = textColors[2]
+        case 3:
+            currentTextColor = textColors[3]
+        default:
+            currentTextColor = textColors[3]
+        }
+        
+        if(keyboardIsVisible) {
+            textFields.last?.textColor = currentTextColor
+        }
+    }
     
     @IBAction func uploadButtonAction(_ sender: Any) {
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
@@ -145,7 +203,7 @@ class MessageUploadViewController: UIViewController {
             if let textField = self.textFields.last{
                 textField.frame.origin.y = targetY
                 textField.backgroundColor = #colorLiteral(red: 0.1841630342, green: 0.1981908197, blue: 0.2178189767, alpha: 0.6)
-                textField.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                textField.textColor = currentTextColor
                 textField.becomeFirstResponder()
                 textField.delegate = self
             }
