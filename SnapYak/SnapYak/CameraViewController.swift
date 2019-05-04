@@ -30,6 +30,19 @@ class CameraViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if let tabBarController = self.tabBarController {
+            tabBarController.tabBar.isHidden = true
+        }
+    }
+    
+    // Goes back to list view
+    @IBAction func toListViewAction(_ sender: Any) {
+        if let tabBarController = self.tabBarController {
+            tabBarController.selectedIndex = 0
+            tabBarController.tabBar.isHidden = false
+        }
+    }
     
     @IBAction func captureButtonAction(_ sender: Any) {
         cameraController.captureImage {(image, error) in
@@ -38,7 +51,12 @@ class CameraViewController: UIViewController {
                 return
             }
             self.capturedImage = image
-            self.performSegue(withIdentifier: "showMessageUploadView", sender: self)
+            let dvc = self.storyboard?.instantiateViewController(withIdentifier: "MessageUploadViewController") as! MessageUploadViewController
+            dvc.capturedIamge = self.capturedImage
+            let navigationVC = UINavigationController(rootViewController: dvc)
+            self.present(navigationVC, animated: true, completion: nil)
+            
+            // self.performSegue(withIdentifier: "showMessageUploadView", sender: self)
         }
     }
     
