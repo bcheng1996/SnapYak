@@ -82,15 +82,20 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         return
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if (status != CLAuthorizationStatus.authorizedWhenInUse &&
+            status != CLAuthorizationStatus.authorizedAlways) {
+            performSegue(withIdentifier: "ShowModalView", sender: self)
+        }
     }
-    */
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            if identifier == "ShowModalView" {
+                if let viewController = segue.destination as? ModalViewController {
+                    viewController.modalPresentationStyle = .overFullScreen
+                }
+            }
+        }
+    }
 }
