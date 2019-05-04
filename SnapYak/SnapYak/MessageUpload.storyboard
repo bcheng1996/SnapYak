@@ -111,16 +111,39 @@
                                     <segue destination="1uo-ag-y3M" kind="show" identifier="showCameraView" id="h5F-Ek-eE6"/>
                                 </connections>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WOW-yR-YZE">
+                                <rect key="frame" x="348" y="47" width="46" height="144"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ok7-VB-sfY">
+                                        <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y7h-f4-ahq">
+                                        <rect key="frame" x="0.0" y="38" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0vG-42-cH6">
+                                        <rect key="frame" x="0.0" y="76" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ir-n9-QfH">
+                                        <rect key="frame" x="0.0" y="114" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="iNw-OL-gRe" secondAttribute="bottom" id="MWA-Go-Q3C"/>
+                            <constraint firstItem="iNw-OL-gRe" firstAttribute="top" secondItem="WOW-yR-YZE" secondAttribute="bottom" constant="-191" id="Mnc-hv-36p"/>
                             <constraint firstItem="iNw-OL-gRe" firstAttribute="leading" secondItem="a9W-Ok-so7" secondAttribute="trailing" constant="-65" id="U1Y-rG-G7o"/>
                             <constraint firstItem="zHo-48-7Qn" firstAttribute="bottom" secondItem="xyH-4k-aOW" secondAttribute="bottom" id="dGe-Kf-tcQ"/>
                             <constraint firstItem="iNw-OL-gRe" firstAttribute="top" secondItem="a9W-Ok-so7" secondAttribute="bottom" constant="-100" id="gxa-sB-ky9"/>
                             <constraint firstItem="iNw-OL-gRe" firstAttribute="top" secondItem="abu-YV-5TK" secondAttribute="top" id="h9T-ya-r7I"/>
                             <constraint firstItem="zHo-48-7Qn" firstAttribute="trailing" secondItem="xyH-4k-aOW" secondAttribute="trailing" constant="47" id="m3E-eR-sxj"/>
                             <constraint firstItem="iNw-OL-gRe" firstAttribute="leading" secondItem="zHo-48-7Qn" secondAttribute="leading" id="ohh-xQ-DPY"/>
+                            <constraint firstItem="WOW-yR-YZE" firstAttribute="leading" secondItem="iNw-OL-gRe" secondAttribute="trailing" constant="-66" id="sfV-YD-fun"/>
                             <constraint firstItem="iNw-OL-gRe" firstAttribute="trailing" secondItem="zHo-48-7Qn" secondAttribute="trailing" id="waw-cC-okc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zHo-48-7Qn"/>
@@ -130,6 +153,10 @@
                         <outlet property="imageOutlet" destination="iNw-OL-gRe" id="ciz-k0-gQ2"/>
                         <outlet property="sendButton" destination="xyH-4k-aOW" id="oLv-pP-TJY"/>
                         <outlet property="uploadButtonOutlet" destination="xyH-4k-aOW" id="P3f-l4-KsQ"/>
+                        <outletCollection property="textColorButtons" destination="ok7-VB-sfY" collectionClass="NSMutableArray" id="QKy-w8-BbZ"/>
+                        <outletCollection property="textColorButtons" destination="y7h-f4-ahq" collectionClass="NSMutableArray" id="Hnm-T4-esH"/>
+                        <outletCollection property="textColorButtons" destination="0vG-42-cH6" collectionClass="NSMutableArray" id="VYA-gC-IEG"/>
+                        <outletCollection property="textColorButtons" destination="5ir-n9-QfH" collectionClass="NSMutableArray" id="4Pb-oB-nhM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9XK-PT-lkt" userLabel="First Responder" sceneMemberID="firstResponder"/>
