@@ -12,6 +12,7 @@
 		9A077B4E226E930400F6A273 /* MessageUpload.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A077B4D226E930400F6A273 /* MessageUpload.storyboard */; };
 		9A077B52226E951700F6A273 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A077B51226E951700F6A273 /* GoogleService-Info.plist */; };
 		9A077B54226E95CD00F6A273 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A077B53226E95CD00F6A273 /* Main.storyboard */; };
+		9AFFFC892272512500EF2CBA /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFFFC882272512500EF2CBA /* CameraController.swift */; };
 		AB17D067226E8CF800C1FBA5 /* Yak.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB17D066226E8CF700C1FBA5 /* Yak.swift */; };
 		AB46CCC7226D3B9800FB64D9 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB46CCC6226D3B9800FB64D9 /* MessageCell.swift */; };
 		AB84871E226511AC007E1862 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB84871D226511AC007E1862 /* AppDelegate.swift */; };
@@ -33,6 +34,7 @@
 		9A077B4D226E930400F6A273 /* MessageUpload.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MessageUpload.storyboard; sourceTree = "<group>"; };
 		9A077B51226E951700F6A273 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9A077B53226E95CD00F6A273 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		9AFFFC882272512500EF2CBA /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		A48FC5444C24AFECFA9540DF /* Pods_SnapYak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapYak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB17D066226E8CF700C1FBA5 /* Yak.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Yak.swift; sourceTree = "<group>"; };
 		AB46CCC6226D3B9800FB64D9 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				AB8487332265131E007E1862 /* MessageViewController.swift */,
 				AB84873522651335007E1862 /* MessageUploadViewController.swift */,
 				9A0435C0226EA8A2009430AA /* CameraViewController.swift */,
+				9AFFFC882272512500EF2CBA /* CameraController.swift */,
 				9A077B53226E95CD00F6A273 /* Main.storyboard */,
 				AB8487372265135D007E1862 /* FirebaseModel.swift */,
 				AB46CCC6226D3B9800FB64D9 /* MessageCell.swift */,
@@ -264,6 +267,7 @@
 				AB84871E226511AC007E1862 /* AppDelegate.swift in Sources */,
 				AB8487302265128F007E1862 /* MessagesListViewController.swift in Sources */,
 				AB84873622651335007E1862 /* MessageUploadViewController.swift in Sources */,
+				9AFFFC892272512500EF2CBA /* CameraController.swift in Sources */,
 				AB848732226512A2007E1862 /* MapViewController.swift in Sources */,
 				AB8487342265131E007E1862 /* MessageViewController.swift in Sources */,
 				AB17D067226E8CF800C1FBA5 /* Yak.swift in Sources */,
