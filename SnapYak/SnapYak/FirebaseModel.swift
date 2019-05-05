@@ -57,7 +57,7 @@ class Database {
             // It is a firebase storage image
             let fbStoragePathRef = storageRef.child("images/\(imageURL)")
             
-            fbStoragePathRef.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
+            fbStoragePathRef.getData(maxSize: 5000000) { (data, error) in
                 if error != nil {
                     print("Error downloading image from Firebase Storage")
                 } else {
