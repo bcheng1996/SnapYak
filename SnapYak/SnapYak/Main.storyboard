@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.59" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pba-cg-J3y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pba-cg-J3y">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.45"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,6 +21,7 @@
                     <connections>
                         <segue destination="bKc-DD-w5W" kind="relationship" relationship="viewControllers" id="YOU-cq-i2J"/>
                         <segue destination="qVc-FJ-87r" kind="relationship" relationship="viewControllers" id="Smh-rr-3d5"/>
+                        <segue destination="E9d-PI-avi" kind="relationship" relationship="viewControllers" id="iWV-yc-3TK"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OaX-p3-Ybs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -36,6 +37,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IdV-Wj-ngV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-340" y="-401"/>
+        </scene>
+        <!--TheMap-->
+        <scene sceneID="e8A-Ur-Cdj">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Map" referencedIdentifier="TheMap" id="E9d-PI-avi" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="pwc-r1-RJl"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lJT-fJ-rM5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-425" y="-208"/>
         </scene>
         <!--MessageUpload-->
         <scene sceneID="SCn-uz-aLK">

@@ -43,6 +43,12 @@ class CameraViewController: UIViewController {
             tabBarController.tabBar.isHidden = false
         }
     }
+    @IBAction func toMapViewAction(_ sender: Any) {
+        if let tabBarController = self.tabBarController {
+            tabBarController.selectedIndex = 2
+            tabBarController.tabBar.isHidden = false
+        }
+    }
     
     @IBAction func captureButtonAction(_ sender: Any) {
         cameraController.captureImage {(image, error) in

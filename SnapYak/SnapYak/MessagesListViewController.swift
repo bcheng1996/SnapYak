@@ -43,7 +43,7 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
             locManager.requestWhenInUseAuthorization()
         }
         
-        // TODO: Retrieve messages from server or file
+        checkForNewYaks()
     }
     
     @objc func checkForNewYaks() {
