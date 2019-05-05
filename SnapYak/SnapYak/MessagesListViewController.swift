@@ -15,6 +15,7 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet var tableView: UITableView!
     let radius: Double = 10000000
     var messages: [Yak]! // This will be where our message data is held
+    var imageCache: [String: Data]!
     var locManager: CLLocationManager!
     var db: Database!
     var storage: StorageReference!
@@ -24,6 +25,7 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
         
         self.messages = []
+        self.imageCache = [:]
         self.locManager = CLLocationManager()
         self.locManager.delegate = self
         self.tableView.delegate = self
@@ -51,11 +53,22 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
                 // Sort the incoming yaks by distance to current location
                 self.messages = yaks
                 self.sortMessages(loc: loc)
+                self.fillImageCache()
                 self.tableView.reloadData()
                 self.refresher.endRefreshing()
             }
         } else {
             self.refresher.endRefreshing()
+        }
+    }
+    
+    func fillImageCache() {
+        for yak in self.messages {
+            if (self.imageCache[yak.image_url] == nil){
+                db.fetchImage(imageURL: yak.image_url) { (data) in
+                    self.imageCache[yak.image_url] = data
+                }
+            }
         }
     }
     
@@ -65,6 +78,10 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         let data = messages[indexPath.row]
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "messageViewController") as! MessageViewController
         newVC.yak = data
+        
+        if (self.imageCache[data.image_url] != nil){
+            newVC.cachedImage = self.imageCache[data.image_url]
+        }
         
         self.present(newVC, animated: true) {
             // Once the view returns from presenting, unselect the row that was
@@ -83,6 +100,16 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         return hourSincePast
     }
     
+    func minutesBetweenDate(pastDate: Date) -> Double {
+        let currDate = Date()
+        let timeInterval = currDate.timeIntervalSince(pastDate)
+        
+        let secondsInMinute: Double = 60
+        let hourSincePast = timeInterval / secondsInMinute
+        
+        return hourSincePast
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.messages.count
     }
@@ -93,18 +120,23 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         // Calculate the distance of the yak (in meters) for the headline label
         let yak1 = self.messages[indexPath.row]
         let yak1Coord = CLLocation(latitude: yak1.location.latitude, longitude: yak1.location.longitude)
-        let timeElapsed = hoursBetweenDate(pastDate: yak1.time_stamp)
+        var timeScale = "hour(s)"
+        var timeElapsed = hoursBetweenDate(pastDate: yak1.time_stamp)
         var yakDistance = 0.0
         
         if let location = self.locManager.location {
             yakDistance = location.distance(from: yak1Coord)
         }
+        if timeElapsed < 1.0 {
+            timeElapsed = minutesBetweenDate(pastDate: yak1.time_stamp)
+            timeScale = "minute(s)"
+        }
         
         let yakDistanceString = String(format: "%.2f", yakDistance)
-        let hoursPassedString = String(format: "%.0f", timeElapsed)
+        let timePassedString = String(format: "%.0f", timeElapsed)
         
         cell.headlineLabel.text = "\(yakDistanceString) meters away."
-        cell.usernameLabel.text = "\(hoursPassedString) hour(s) ago"
+        cell.usernameLabel.text = "\(timePassedString) \(timeScale) ago"
         cell.votesLabel.text = "100%"
         
         return cell
@@ -119,6 +151,7 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         db.fetchYaks(currentLocation: locations.first!, radius: self.radius) { (yaks) in
             self.messages = yaks
             self.sortMessages(loc: locations.first!)
+            self.fillImageCache()
             self.tableView.reloadData()
         }
     }
