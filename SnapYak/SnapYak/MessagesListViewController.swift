@@ -13,7 +13,7 @@ import Firebase
 class MessagesListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet var tableView: UITableView!
-    let radius: Double = 5000
+    let radius: Double = 10000000
     var messages: [Yak]! // This will be where our message data is held
     var locManager: CLLocationManager!
     var db: Database!
@@ -42,20 +42,34 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         } else{
             locManager.requestWhenInUseAuthorization()
         }
-        
-        // TODO: Retrieve messages from server or file
     }
     
     @objc func checkForNewYaks() {
         if let loc = self.locManager.location {
             db.fetchYaks(currentLocation: loc, radius: self.radius) { (yaks) in
+                // Sort the incoming yaks by distance to current location
                 self.messages = yaks
+                self.sortMessages(loc: loc)
                 self.tableView.reloadData()
                 self.refresher.endRefreshing()
             }
         } else {
             self.refresher.endRefreshing()
         }
+    }
+    
+    func dateToString(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
+        
+        let myString = formatter.string(from: date) // string purpose I add here
+        let myDate = formatter.date(from: myString)
+        //then again set the date format whhich type of output you need
+        formatter.dateFormat = "MM-dd-yyyy"
+        // again convert your date to string
+        let resString = formatter.string(from: myDate!)
+        
+        return resString
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -80,17 +94,34 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "messageCell") as! MessageCell
-        cell.headlineLabel.text = self.messages[indexPath.row].image_url
-        cell.usernameLabel.text = "TODO: ADD USERNAME DATA"
-        cell.votesLabel.text = "TODO: ADD VOTES DATA"
+        
+        // Calculate the distance of the yak (in meters) for the headline label
+        let yak1 = self.messages[indexPath.row]
+        let yak1Coord = CLLocation(latitude: yak1.location.latitude, longitude: yak1.location.longitude)
+        var yakDistance = 0.0
+        
+        if let location = self.locManager.location {
+            yakDistance = location.distance(from: yak1Coord)
+        }
+        
+        let yakDistanceString = String(format: "%.2f", yakDistance)
+        
+        cell.headlineLabel.text = "\(yakDistanceString) meters away."
+        cell.usernameLabel.text = dateToString(date: yak1.time_stamp)
+        cell.votesLabel.text = "100%"
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Nearby Yaks"
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         db.fetchYaks(currentLocation: locations.first!, radius: self.radius) { (yaks) in
             self.messages = yaks
+            self.sortMessages(loc: locations.first!)
             self.tableView.reloadData()
         }
     }
@@ -104,6 +135,21 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
             status != CLAuthorizationStatus.authorizedAlways) {
             performSegue(withIdentifier: "ShowModalView", sender: self)
         }
+    }
+    
+    func sortMessages(loc: CLLocation){
+        self.messages = messages.sorted(by: { (yak1, yak2) -> Bool in
+            let yak1Coord = CLLocation(latitude: yak1.location.latitude, longitude: yak1.location.longitude)
+            let yak2Coord = CLLocation(latitude: yak2.location.latitude, longitude: yak2.location.longitude)
+            let distanceToYak1 = loc.distance(from: yak1Coord)
+            let distanceToYak2 = loc.distance(from: yak2Coord)
+            
+            if (distanceToYak1 < distanceToYak2){
+                return true
+            } else {
+                return false
+            }
+        })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
