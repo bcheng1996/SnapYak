@@ -78,6 +78,12 @@ class MessageUploadViewController: UIViewController {
         }else{
             locManager.requestWhenInUseAuthorization()
         }
+        
+        if let userLocation = locManager.location {
+            self.sendButton.isEnabled = true
+            self.sendButton.setTitleColor(#colorLiteral(red: 0.1725490196, green: 0.6156862745, blue: 0.8980392157, alpha: 1), for: .normal)
+            self.currentLocation = userLocation
+        }
     }
     
     @objc func wasTapped(sender: UITapGestureRecognizer) {
