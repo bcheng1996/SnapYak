@@ -184,7 +184,7 @@ class MessageUploadViewController: UIViewController {
                     if let error = error {
                         print("Error uploading image: \(error.localizedDescription)")
                     } else {
-                        let newYak = Yak(user_id: "B1WRIde8IPTZuWoTsiBU", image_url: fileName, location: GeoPoint(latitude: self.currentLocation.coordinate.latitude, longitude: self.currentLocation.coordinate.longitude), time_stamp: Date())
+                        let newYak = Yak(user_id: "B1WRIde8IPTZuWoTsiBU", image_url: fileName, location: GeoPoint(latitude: self.currentLocation.coordinate.latitude, longitude: self.currentLocation.coordinate.longitude), time_stamp: Date(), likes: 0)
                         self.db.uploadYak(yak: newYak)
                         
                         print("image uploaded")
@@ -266,7 +266,7 @@ extension MessageUploadViewController: CLLocationManagerDelegate {
 // Converts UIView to an Image
 extension UIImage {
     convenience init(view: UIView) {
-        UIGraphicsBeginImageContext(view.frame.size)
+        UIGraphicsBeginImageContextWithOptions(view.frame.size, view.isOpaque, 0.0)
         view.layer.render(in:UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

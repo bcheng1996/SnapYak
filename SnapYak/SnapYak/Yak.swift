@@ -18,13 +18,15 @@ struct Yak {
     var image_url: String
     var location: GeoPoint
     var time_stamp: Date
+    var likes: Int
     
     var dictionary: [String: Any] {
         return [
             "user_id": user_id,
             "image_url": image_url,
             "location": location,
-            "time_stamp": time_stamp
+            "time_stamp": time_stamp,
+            "likes": likes
         ]
     }
 }
@@ -35,9 +37,10 @@ extension Yak : DocumentSerializable {
         guard let user_id = dictionary["user_id"] as? String,
             let image_url = dictionary["image_url"] as? String,
             let location = dictionary["location"] as? GeoPoint,
-            let time_stamp = dictionary["time_stamp"] as? Timestamp
+            let time_stamp = dictionary["time_stamp"] as? Timestamp,
+            let likes = dictionary["likes"] as? Int
             else{return nil}
-        self.init(user_id: user_id, image_url: image_url, location: location, time_stamp: time_stamp.dateValue())
+        self.init(user_id: user_id, image_url: image_url, location: location, time_stamp: time_stamp.dateValue(), likes: likes)
     }
 }
 
