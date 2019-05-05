@@ -20,6 +20,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var db: Database!
     var storage: StorageReference!
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let userLocation = locManager.location {
+            db.fetchYaks(currentLocation: userLocation, radius: self.radius) { (yaks) in
+                self.messages = yaks
+                self.displayYaks()
+            }
+        } else {
+            self.messages = []
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,23 +59,38 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         db.fetchYaks(currentLocation: locations.first!, radius: self.radius) { (yaks) in
             self.messages = yaks
+            self.displayYaks()
         }
-        
-        displayYaks()
     }
     
     func displayYaks() {
+        mapView.removeAnnotations(mapView.annotations)
+        mapView.removeOverlays(mapView.overlays)
+        
+        var index = 0
         for yak in self.messages {
-            NSLog(yak.image_url)
-            let lat = yak.location.latitude
-            let lon = yak.location.longitude
-            var coord: [CLLocationCoordinate2D] = []
-            coord.append(CLLocationCoordinate2D(latitude: lat, longitude: lon))
-            coord.append(CLLocationCoordinate2D(latitude: lat + 1, longitude: lon))
-            coord.append(CLLocationCoordinate2D(latitude: lat + 1, longitude: lon + 1))
-            coord.append(CLLocationCoordinate2D(latitude: lat, longitude: lon + 1))
-            
-            mapView.addOverlay(MKPolygon(coordinates: coord, count: 4))
+            let coord = CLLocationCoordinate2D(latitude: yak.location.latitude, longitude: yak.location.longitude)
+            let annotation = MessageAnnotation(coordinate: coord, yak: yak, index: index)
+            mapView.addAnnotation(annotation)
+            index += 1
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let annotationView = MessageAnnotationView(annotation: annotation, reuseIdentifier: "Message")
+        annotationView.canShowCallout = true
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if let annotation = view.annotation as? MessageAnnotation {
+            if let data = messages?[annotation.index ?? -1] {
+                let storyboard = UIStoryboard(name: "List", bundle: nil)
+                let newVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! MessageViewController
+                newVC.yak = data
+                
+                self.present(newVC, animated: true)
+            }
         }
     }
 }
