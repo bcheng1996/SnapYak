@@ -12,6 +12,8 @@ class MessageCell: UITableViewCell {
     @IBOutlet var headlineLabel: UILabel!
     @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var votesLabel: UILabel!
+    @IBOutlet var upVoteButton: UIButton!
+    @IBOutlet var downVoteButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,5 +25,4 @@ class MessageCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }

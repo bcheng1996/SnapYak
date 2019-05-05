@@ -22,7 +22,7 @@ class Database {
     
     
     public func uploadYak(yak: Yak) {
-        var ref:DocumentReference? = nil
+        var ref: DocumentReference? = nil
         ref = self.db.collection("Yaks").addDocument(data: yak.dictionary) {
             error in
             if let error = error {
@@ -104,6 +104,32 @@ class Database {
                     }
                     if completion != nil {
                         completion!(result)
+                    }
+                }
+            }
+        }
+    }
+    
+    public func updateYakVote(targetYak: Yak){
+        // Collect all Yaks
+        self.db.collection("Yaks").getDocuments { (rawSnapshot, error) in
+            if error != nil {
+                print("Error fetching yaks, check connection")
+            } else {
+                if let snapshot = rawSnapshot {
+                    // Filter Yaks
+                    for doc in snapshot.documents {
+                        let rawYak = doc.data()
+                        let yak = Yak(dictionary: rawYak)
+                        
+                        if (targetYak.image_url == yak?.image_url){
+                            self.db.collection("Yaks")
+                                .document(doc.documentID)
+                                .updateData(["likes" : targetYak.likes])
+                            break
+                        }
+                        
+                        
                     }
                 }
             }

@@ -137,9 +137,58 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         
         cell.headlineLabel.text = "\(yakDistanceString) meters away."
         cell.usernameLabel.text = "\(timePassedString) \(timeScale) ago"
-        cell.votesLabel.text = "100%"
+        cell.votesLabel.text = "\(yak1.likes)"
+        cell.upVoteButton.tag = indexPath.row
+        cell.downVoteButton.tag = indexPath.row
+        
+        if yak1.likes >= 0 {
+            cell.votesLabel.textColor = UIColor(hue: 0.3472, saturation: 1, brightness: 0.57, alpha: 1.0)
+        } else {
+            cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
+        }
+        
+        cell.upVoteButton.addTarget(self, action: #selector(upVote), for: .touchUpInside)
+        cell.downVoteButton.addTarget(self, action: #selector(downVote), for: .touchUpInside)
         
         return cell
+    }
+    
+    @objc
+    func upVote(sender: UIButton) {
+        var yak = self.messages[sender.tag]
+        yak.likes = yak.likes + 1
+        // Since this is swift and the var is a struct
+        // we need to replace the old yak with the new yak
+        // with the updated vote count
+        // otherwise the original in the array wont update
+        self.messages[sender.tag] = yak
+        let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MessageCell
+        cell.votesLabel.text = "\(yak.likes)"
+        
+        if yak.likes >= 0 {
+            cell.votesLabel.textColor = UIColor(hue: 0.3472, saturation: 1, brightness: 0.57, alpha: 1.0)
+        } else {
+            cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
+        }
+        
+        db.updateYakVote(targetYak: yak)
+    }
+    
+    @objc
+    func downVote(sender: UIButton) {
+        var yak = self.messages[sender.tag]
+        yak.likes = yak.likes - 1
+        self.messages[sender.tag] = yak
+        let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MessageCell
+        cell.votesLabel.text = "\(yak.likes)"
+        
+        if yak.likes >= 0 {
+            cell.votesLabel.textColor = UIColor(hue: 0.3472, saturation: 1, brightness: 0.57, alpha: 1.0)
+        } else {
+            cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
+        }
+        
+        db.updateYakVote(targetYak: yak)
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
