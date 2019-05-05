@@ -42,6 +42,7 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         } else{
             locManager.requestWhenInUseAuthorization()
         }
+        checkForNewYaks()
     }
     
     @objc func checkForNewYaks() {
