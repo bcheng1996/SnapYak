@@ -20,6 +20,7 @@ class MessageViewController: UIViewController {
         if let yak = yak {
             self.messageLabel.text = "Location: \(yak.location)"
             self.db.fetchImage(imageURL: yak.image_url) { (imageData) in
+                self.imageView.contentMode = .scaleAspectFill
                 self.imageView.image = UIImage(data: imageData)
             }
         }

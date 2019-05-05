@@ -44,12 +44,14 @@ class MessageUploadViewController: UIViewController {
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet var textColorButtons: [UIButton]!
     
+    @IBOutlet weak var textColorButtonsStack: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadColorButtons()
         self.sendButton.isEnabled = false
         self.currentTextColor = textColors[0]
+        self.textColorButtonsStack.isHidden = true
         self.sendButton.setTitleColor(UIColor.gray, for: .normal)
         self.navigationController?.isNavigationBarHidden = true
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -57,7 +59,10 @@ class MessageUploadViewController: UIViewController {
          NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         imageOutlet.isUserInteractionEnabled = true;
+        imageOutlet.contentMode = .scaleAspectFill
         imageOutlet.image = capturedIamge
+        imageOutlet.center = self.view.center
+
         let tap = UITapGestureRecognizer(target: self, action: #selector(wasTapped))
         self.imageOutlet.addGestureRecognizer(tap)
         storage = Storage.storage()
@@ -196,6 +201,7 @@ class MessageUploadViewController: UIViewController {
     
     @objc func keyboardWillShow(notification:NSNotification) {
         self.keyboardIsVisible = true
+        self.textColorButtonsStack.isHidden = false
         if let info = notification.userInfo {
             let rect = info["UIKeyboardFrameEndUserInfoKey"] as! CGRect
             
@@ -212,6 +218,7 @@ class MessageUploadViewController: UIViewController {
     
     @objc func keyboardWillHide(notification: NSNotification) {
         self.keyboardIsVisible = false
+        self.textColorButtonsStack.isHidden = true
         if let textField = textFields.last, textField.text != ""{
             textField.frame.origin.y = previousTextFieldY!
             textField.textAlignment = .center

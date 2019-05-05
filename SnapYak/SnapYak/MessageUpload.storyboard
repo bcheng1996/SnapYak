@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1uo-ag-y3M">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.59" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1uo-ag-y3M">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.45"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -93,7 +93,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iNw-OL-gRe">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="906"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xyH-4k-aOW">
                                 <rect key="frame" x="313" y="773" width="54" height="89"/>
@@ -138,18 +138,18 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="iNw-OL-gRe" secondAttribute="bottom" id="MWA-Go-Q3C"/>
-                            <constraint firstItem="iNw-OL-gRe" firstAttribute="top" secondItem="WOW-yR-YZE" secondAttribute="bottom" constant="-191" id="Mnc-hv-36p"/>
-                            <constraint firstItem="iNw-OL-gRe" firstAttribute="leading" secondItem="a9W-Ok-so7" secondAttribute="trailing" constant="-65" id="U1Y-rG-G7o"/>
+                            <constraint firstItem="zHo-48-7Qn" firstAttribute="top" secondItem="a9W-Ok-so7" secondAttribute="bottom" constant="-56" id="Iad-cW-v5z"/>
+                            <constraint firstItem="iNw-OL-gRe" firstAttribute="centerY" secondItem="zHo-48-7Qn" secondAttribute="centerY" id="Jq6-Vq-DXe"/>
+                            <constraint firstItem="zHo-48-7Qn" firstAttribute="top" secondItem="WOW-yR-YZE" secondAttribute="bottom" constant="-147" id="LJB-ga-1N5"/>
+                            <constraint firstItem="iNw-OL-gRe" firstAttribute="leading" secondItem="abu-YV-5TK" secondAttribute="leading" id="YMT-e4-trQ"/>
                             <constraint firstItem="zHo-48-7Qn" firstAttribute="bottom" secondItem="xyH-4k-aOW" secondAttribute="bottom" id="dGe-Kf-tcQ"/>
-                            <constraint firstItem="iNw-OL-gRe" firstAttribute="top" secondItem="a9W-Ok-so7" secondAttribute="bottom" constant="-100" id="gxa-sB-ky9"/>
-                            <constraint firstItem="iNw-OL-gRe" firstAttribute="top" secondItem="abu-YV-5TK" secondAttribute="top" id="h9T-ya-r7I"/>
+                            <constraint firstItem="iNw-OL-gRe" firstAttribute="centerX" secondItem="zHo-48-7Qn" secondAttribute="centerX" id="g3h-zs-ZWZ"/>
+                            <constraint firstItem="zHo-48-7Qn" firstAttribute="leading" secondItem="a9W-Ok-so7" secondAttribute="trailing" constant="-65" id="ja5-lc-fj6"/>
+                            <constraint firstItem="WOW-yR-YZE" firstAttribute="leading" secondItem="zHo-48-7Qn" secondAttribute="trailing" constant="-66" id="ju7-ff-fhq"/>
                             <constraint firstItem="zHo-48-7Qn" firstAttribute="trailing" secondItem="xyH-4k-aOW" secondAttribute="trailing" constant="47" id="m3E-eR-sxj"/>
-                            <constraint firstItem="iNw-OL-gRe" firstAttribute="leading" secondItem="zHo-48-7Qn" secondAttribute="leading" id="ohh-xQ-DPY"/>
-                            <constraint firstItem="WOW-yR-YZE" firstAttribute="leading" secondItem="iNw-OL-gRe" secondAttribute="trailing" constant="-66" id="sfV-YD-fun"/>
-                            <constraint firstItem="iNw-OL-gRe" firstAttribute="trailing" secondItem="zHo-48-7Qn" secondAttribute="trailing" id="waw-cC-okc"/>
+                            <constraint firstItem="iNw-OL-gRe" firstAttribute="top" secondItem="abu-YV-5TK" secondAttribute="top" id="oea-I8-B8y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zHo-48-7Qn"/>
                     </view>
@@ -157,6 +157,7 @@
                     <connections>
                         <outlet property="imageOutlet" destination="iNw-OL-gRe" id="ciz-k0-gQ2"/>
                         <outlet property="sendButton" destination="xyH-4k-aOW" id="oLv-pP-TJY"/>
+                        <outlet property="textColorButtonsStack" destination="WOW-yR-YZE" id="pze-PK-1xO"/>
                         <outlet property="uploadButtonOutlet" destination="xyH-4k-aOW" id="P3f-l4-KsQ"/>
                         <outletCollection property="textColorButtons" destination="ok7-VB-sfY" collectionClass="NSMutableArray" id="QKy-w8-BbZ"/>
                         <outletCollection property="textColorButtons" destination="y7h-f4-ahq" collectionClass="NSMutableArray" id="Hnm-T4-esH"/>
