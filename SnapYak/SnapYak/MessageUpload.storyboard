@@ -52,14 +52,27 @@
                                             <action selector="toMapViewAction:" destination="1uo-ag-y3M" eventType="touchUpInside" id="XlN-16-icT"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5q2-kc-3s6">
+                                        <rect key="frame" x="348" y="55" width="36" height="55"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                        <state key="normal" title="⟳">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleShadowColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="switchCameraAction:" destination="1uo-ag-y3M" eventType="touchUpInside" id="Eg1-eG-CtU"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="KeL-vN-9J5" firstAttribute="leading" secondItem="Dvy-th-bR8" secondAttribute="trailing" constant="75" id="04S-LJ-FnB"/>
                                     <constraint firstItem="KeL-vN-9J5" firstAttribute="firstBaseline" secondItem="Dvy-th-bR8" secondAttribute="firstBaseline" constant="-15" id="Arq-aV-GRS"/>
+                                    <constraint firstItem="5q2-kc-3s6" firstAttribute="top" secondItem="DII-re-Fum" secondAttribute="top" constant="55" id="LBe-Zj-DRy"/>
                                     <constraint firstItem="lyc-As-2N5" firstAttribute="firstBaseline" secondItem="Dvy-th-bR8" secondAttribute="firstBaseline" constant="-15" id="ayX-pH-m9i"/>
                                     <constraint firstItem="Dvy-th-bR8" firstAttribute="leading" secondItem="lyc-As-2N5" secondAttribute="trailing" constant="75" id="dKV-oh-fAA"/>
                                     <constraint firstItem="Dvy-th-bR8" firstAttribute="centerX" secondItem="DII-re-Fum" secondAttribute="centerX" id="iQ5-7P-RbP"/>
+                                    <constraint firstAttribute="trailing" secondItem="5q2-kc-3s6" secondAttribute="trailing" constant="30" id="uo2-vD-TE2"/>
                                 </constraints>
                             </view>
                         </subviews>
