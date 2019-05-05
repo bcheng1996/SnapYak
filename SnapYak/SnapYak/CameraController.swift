@@ -36,7 +36,7 @@ class CameraController: NSObject {
         
         func configureCaptureDevices() throws {
             
-            let session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .unspecified)
+            let session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .unspecified)
             
             let cameras = session.devices.compactMap { $0 }
             guard !cameras.isEmpty else { throw CameraControllerError.noCamerasAvailable }
@@ -85,7 +85,10 @@ class CameraController: NSObject {
             self.photoOutput = AVCapturePhotoOutput()
             self.photoOutput!.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey : AVVideoCodecJPEG])], completionHandler: nil)
             
-            if captureSession.canAddOutput(self.photoOutput!) { captureSession.addOutput(self.photoOutput!) }
+            if captureSession.canAddOutput(self.photoOutput!) {
+                self.photoOutput?.isHighResolutionCaptureEnabled = true
+                captureSession.addOutput(self.photoOutput!)
+            }
             captureSession.startRunning()
         }
         
@@ -181,7 +184,7 @@ class CameraController: NSObject {
         
         let settings = AVCapturePhotoSettings()
         settings.flashMode = self.flashMode
-        
+        settings.isHighResolutionPhotoEnabled = true
         self.photoOutput?.capturePhoto(with: settings, delegate: self)
         self.photoCaptureCompletion = completion
     }

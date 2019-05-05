@@ -49,6 +49,13 @@ class CameraViewController: UIViewController {
             tabBarController.tabBar.isHidden = false
         }
     }
+    @IBAction func switchCameraAction(_ sender: Any) {
+        do {
+            try self.cameraController.switchCameras()
+        } catch  {
+            print("ERROR!", error)
+        }
+    }
     
     @IBAction func captureButtonAction(_ sender: Any) {
         cameraController.captureImage {(image, error) in
@@ -72,6 +79,33 @@ class CameraViewController: UIViewController {
             dvc.capturedIamge = self.capturedImage
         }
         
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let screenSize = self.view.bounds.size
+        if let touchPoint = touches.first {
+            let x = touchPoint.location(in: self.view).y / screenSize.height
+            let y = 1.0 - touchPoint.location(in: self.view).x / screenSize.width
+            let focusPoint = CGPoint(x: x, y: y)
+     
+
+            if let device = cameraController.rearCamera {
+                do {
+                    try device.lockForConfiguration()
+                    
+                    device.focusPointOfInterest = focusPoint
+                    //device.focusMode = .continuousAutoFocus
+                    device.focusMode = .autoFocus
+                    //device.focusMode = .locked
+                    device.exposurePointOfInterest = focusPoint
+                    device.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
+                    device.unlockForConfiguration()
+                }
+                catch {
+                    // just ignore
+                }
+            }
+        }
     }
     
 //    let captureSession = AVCaptureSession()

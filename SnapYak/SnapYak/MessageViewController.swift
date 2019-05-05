@@ -14,13 +14,19 @@ class MessageViewController: UIViewController {
     @IBOutlet var closeButton: UIButton!
     var db: Database!
     var yak: Yak?
+    var cachedImage: Data?
 
     override func viewWillAppear(_ animated: Bool) {
         db = Database()
         if let yak = yak {
-            self.messageLabel.text = "Location: \(yak.location)"
-            self.db.fetchImage(imageURL: yak.image_url) { (imageData) in
-                self.imageView.image = UIImage(data: imageData)
+            if cachedImage != nil {
+                self.imageView.contentMode = .scaleAspectFill
+                self.imageView.image = UIImage(data: cachedImage!)
+            } else {
+                self.db.fetchImage(imageURL: yak.image_url) { (imageData) in
+                    self.imageView.contentMode = .scaleAspectFill
+                    self.imageView.image = UIImage(data: imageData)
+                }
             }
         }
     }
