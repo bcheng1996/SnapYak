@@ -58,20 +58,6 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func dateToString(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
-        
-        let myString = formatter.string(from: date) // string purpose I add here
-        let myDate = formatter.date(from: myString)
-        //then again set the date format whhich type of output you need
-        formatter.dateFormat = "MM-dd-yyyy"
-        // again convert your date to string
-        let resString = formatter.string(from: myDate!)
-        
-        return resString
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Basically click on the message row and we want to get the data for the message
         // Display it in another VC
@@ -86,7 +72,15 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    
+    func hoursBetweenDate(pastDate: Date) -> Double {
+        let currDate = Date()
+        let timeInterval = currDate.timeIntervalSince(pastDate)
+        
+        let secondsInHour: Double = 3600
+        let hourSincePast = timeInterval / secondsInHour
+        
+        return hourSincePast
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.messages.count
@@ -98,6 +92,7 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         // Calculate the distance of the yak (in meters) for the headline label
         let yak1 = self.messages[indexPath.row]
         let yak1Coord = CLLocation(latitude: yak1.location.latitude, longitude: yak1.location.longitude)
+        let timeElapsed = hoursBetweenDate(pastDate: yak1.time_stamp)
         var yakDistance = 0.0
         
         if let location = self.locManager.location {
@@ -105,9 +100,10 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         }
         
         let yakDistanceString = String(format: "%.2f", yakDistance)
+        let hoursPassedString = String(format: "%.0f", timeElapsed)
         
         cell.headlineLabel.text = "\(yakDistanceString) meters away."
-        cell.usernameLabel.text = dateToString(date: yak1.time_stamp)
+        cell.usernameLabel.text = "\(hoursPassedString) hour(s) ago"
         cell.votesLabel.text = "100%"
         
         return cell
