@@ -268,7 +268,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LJU-6H-tdb">
-                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="546"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" rowHeight="102" id="hgC-ah-cjf" customClass="MessageCell" customModule="SnapYak" customModuleProvider="target">
@@ -343,19 +343,45 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ezW-g2-zfn">
+                                <rect key="frame" x="239" y="39" width="120" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="YvH-hb-Iyl"/>
+                                    <constraint firstAttribute="width" constant="120" id="egv-U8-TRu"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Distance"/>
+                                    <segment title="Likes"/>
+                                </segments>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nearby Yaks" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uxG-Gq-cqy">
+                                <rect key="frame" x="16" y="39" width="125" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="D7Q-AG-sPl"/>
+                                    <constraint firstAttribute="width" constant="125" id="Y8o-ZN-Lna"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="LJU-6H-tdb" firstAttribute="top" secondItem="ezW-g2-zfn" secondAttribute="bottom" constant="8" id="9K7-Qb-ysa"/>
+                            <constraint firstItem="6R9-IN-wnx" firstAttribute="trailing" secondItem="ezW-g2-zfn" secondAttribute="trailing" constant="16" id="BWt-8M-Ak7"/>
+                            <constraint firstItem="LJU-6H-tdb" firstAttribute="top" secondItem="uxG-Gq-cqy" secondAttribute="bottom" constant="8" id="FeP-2n-8ZH"/>
+                            <constraint firstItem="uxG-Gq-cqy" firstAttribute="leading" secondItem="6R9-IN-wnx" secondAttribute="leading" constant="16" id="HdP-Qt-h30"/>
                             <constraint firstItem="LJU-6H-tdb" firstAttribute="bottom" secondItem="6R9-IN-wnx" secondAttribute="bottom" id="Kmq-Vd-c58"/>
                             <constraint firstAttribute="trailing" secondItem="LJU-6H-tdb" secondAttribute="trailing" id="Ooi-Nq-h3R"/>
                             <constraint firstItem="LJU-6H-tdb" firstAttribute="leading" secondItem="mqD-Qa-r6j" secondAttribute="leading" id="YTD-p9-Kb2"/>
-                            <constraint firstItem="LJU-6H-tdb" firstAttribute="top" secondItem="6R9-IN-wnx" secondAttribute="top" id="uuk-Ly-Yf9"/>
+                            <constraint firstItem="LJU-6H-tdb" firstAttribute="top" secondItem="6R9-IN-wnx" secondAttribute="top" constant="52" id="uuk-Ly-Yf9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6R9-IN-wnx"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="List" id="ce3-te-Xda"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="segmentedControl" destination="ezW-g2-zfn" id="NGL-FS-NVa"/>
                         <outlet property="tableView" destination="LJU-6H-tdb" id="lrh-96-efg"/>
                         <segue destination="Lcm-DO-4Hb" kind="show" identifier="ShowModalView" id="XRX-r6-N68"/>
                     </connections>

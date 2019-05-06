@@ -13,6 +13,7 @@ import Firebase
 class MessagesListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var segmentedControl: UISegmentedControl!
     var radius: Double = 10000000
     var messages: [Yak]! // This will be where our message data is held
     var imageCache: [String: Data]!
@@ -42,9 +43,12 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         self.db = Database()
         self.refresher = UIRefreshControl()
         self.tableView.addSubview(refresher)
-        refresher.attributedTitle = NSAttributedString(string: "Pull to Refresh")
-        refresher.tintColor = UIColor(red: 1.00, green: 0.20, blue: 0.50, alpha: 1.0)
-        refresher.addTarget(self, action: #selector(checkForNewYaks), for: .valueChanged)
+        
+        self.refresher.attributedTitle = NSAttributedString(string: "Pull to Refresh")
+        self.refresher.tintColor = UIColor(red: 1.00, green: 0.20, blue: 0.50, alpha: 1.0)
+        self.refresher.addTarget(self, action: #selector(checkForNewYaks), for: .valueChanged)
+        
+        self.segmentedControl.addTarget(self, action: #selector(handleSort), for: UIControl.Event.valueChanged)
     
         self.radius = UserDefaults.standard.double(forKey: "radius")
         if self.radius == 0 {
@@ -67,7 +71,7 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
             db.fetchYaks(currentLocation: loc, radius: self.radius) { (yaks) in
                 // Sort the incoming yaks by distance to current location
                 self.messages = yaks
-                self.sortMessages(loc: loc)
+                self.sortMessagesByLocation(loc: loc)
                 self.tableView.reloadData()
                 self.refresher.endRefreshing()
             }
@@ -294,15 +298,11 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         self.tableView.reloadData()
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Nearby Yaks"
-    }
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         db.fetchYaks(currentLocation: locations.first!, radius: self.radius) { (yaks) in
             self.messages = yaks
-            self.sortMessages(loc: locations.first!)
+            self.sortMessagesByLocation(loc: locations.first!)
             self.tableView.reloadData()
         }
     }
@@ -318,7 +318,7 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func sortMessages(loc: CLLocation){
+    func sortMessagesByLocation(loc: CLLocation){
         self.messages = messages.sorted(by: { (yak1, yak2) -> Bool in
             let yak1Coord = CLLocation(latitude: yak1.location.latitude, longitude: yak1.location.longitude)
             let yak2Coord = CLLocation(latitude: yak2.location.latitude, longitude: yak2.location.longitude)
@@ -331,6 +331,27 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
                 return false
             }
         })
+    }
+    
+    func sortMessagesByLikes(){
+        self.messages = messages.sorted(by: { (yak1, yak2) -> Bool in
+            if (yak1.likes > yak2.likes){
+                return true
+            } else {
+                return false
+            }
+        })
+    }
+    
+    @objc func handleSort() {
+        if (self.segmentedControl.selectedSegmentIndex == 0){
+            if let loc = self.locManager.location {
+                self.sortMessagesByLocation(loc: loc)
+            }
+        } else {
+            self.sortMessagesByLikes()
+        }
+        self.tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
