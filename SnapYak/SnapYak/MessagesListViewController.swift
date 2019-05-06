@@ -68,22 +68,11 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
                 // Sort the incoming yaks by distance to current location
                 self.messages = yaks
                 self.sortMessages(loc: loc)
-                self.fillImageCache()
                 self.tableView.reloadData()
                 self.refresher.endRefreshing()
             }
         } else {
             self.refresher.endRefreshing()
-        }
-    }
-    
-    func fillImageCache() {
-        for yak in self.messages {
-            if (self.imageCache[yak.image_url] == nil){
-                db.fetchImage(imageURL: yak.image_url) { (data) in
-                    self.imageCache[yak.image_url] = data
-                }
-            }
         }
     }
     
@@ -96,12 +85,22 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         
         if (self.imageCache[data.image_url] != nil){
             newVC.cachedImage = self.imageCache[data.image_url]
-        }
-        
-        self.present(newVC, animated: true) {
-            // Once the view returns from presenting, unselect the row that was
-            // previously selected
-            self.tableView.deselectRow(at: indexPath, animated: true)
+            
+            self.present(newVC, animated: true) {
+                // Once the view returns from presenting, unselect the row that was
+                self.tableView.deselectRow(at: indexPath, animated: true)
+            }
+            
+        } else {
+            self.db.fetchImage(imageURL: data.image_url) { (imageData) in
+                self.imageCache[data.image_url] = imageData
+                newVC.cachedImage = imageData
+                self.present(newVC, animated: true) {
+                    // Once the view returns from presenting, unselect the row that was
+                    // previously selected and cache the image
+                    self.tableView.deselectRow(at: indexPath, animated: true)
+                }
+            }
         }
     }
     
@@ -304,7 +303,6 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         db.fetchYaks(currentLocation: locations.first!, radius: self.radius) { (yaks) in
             self.messages = yaks
             self.sortMessages(loc: locations.first!)
-            self.fillImageCache()
             self.tableView.reloadData()
         }
     }

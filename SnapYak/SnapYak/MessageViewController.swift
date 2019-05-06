@@ -22,17 +22,10 @@ class MessageViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         db = Database()
-        if let yak = yak {
-            if cachedImage != nil {
-                self.imageView.contentMode = .scaleAspectFill
-                self.imageView.image = UIImage(data: cachedImage!)
-            } else {
-                self.db.fetchImage(imageURL: yak.image_url) { (imageData) in
-                    self.imageView.contentMode = .scaleAspectFill
-                    self.imageView.image = UIImage(data: imageData)
-                }
-            }
-        }
+        if cachedImage != nil {
+            self.imageView.contentMode = .scaleAspectFill
+            self.imageView.image = UIImage(data: cachedImage!)
+        } 
     }
     override func viewDidLoad() {
         super.viewDidLoad()
