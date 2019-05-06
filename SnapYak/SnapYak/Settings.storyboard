@@ -34,8 +34,8 @@
                                     <action selector="saveRadius:" destination="zvE-S0-oxo" eventType="touchUpInside" id="NCa-BO-VQA"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Radius" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KU6-p9-GkY">
-                                <rect key="frame" x="181" y="404" width="52" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Radius (meters)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KU6-p9-GkY">
+                                <rect key="frame" x="146.5" y="404" width="121.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -43,12 +43,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="DYe-3u-C1z" firstAttribute="trailing" secondItem="KU6-p9-GkY" secondAttribute="trailing" constant="181" id="FPf-72-5VG"/>
                             <constraint firstItem="gFg-x3-uxj" firstAttribute="leading" secondItem="DYe-3u-C1z" secondAttribute="leading" constant="20" id="N0B-fY-EaX"/>
                             <constraint firstItem="DYe-3u-C1z" firstAttribute="trailing" secondItem="2xJ-d6-eiK" secondAttribute="trailing" constant="20" id="PGE-sC-uiv"/>
-                            <constraint firstItem="KU6-p9-GkY" firstAttribute="leading" secondItem="DYe-3u-C1z" secondAttribute="leading" constant="181" id="V5f-K7-uFW"/>
                             <constraint firstItem="2xJ-d6-eiK" firstAttribute="top" secondItem="DYe-3u-C1z" secondAttribute="top" constant="389" id="XbC-gV-nls"/>
                             <constraint firstItem="DYe-3u-C1z" firstAttribute="bottom" secondItem="2xJ-d6-eiK" secondAttribute="bottom" constant="350" id="ZBV-FU-6is"/>
+                            <constraint firstItem="KU6-p9-GkY" firstAttribute="centerX" secondItem="DYe-3u-C1z" secondAttribute="centerX" id="bky-Q1-eEO"/>
                             <constraint firstItem="gFg-x3-uxj" firstAttribute="top" secondItem="DYe-3u-C1z" secondAttribute="top" constant="389" id="no2-29-olV"/>
                             <constraint firstItem="DYe-3u-C1z" firstAttribute="bottom" secondItem="gFg-x3-uxj" secondAttribute="bottom" constant="350" id="uRf-ls-Asj"/>
                             <constraint firstItem="KU6-p9-GkY" firstAttribute="top" secondItem="DYe-3u-C1z" secondAttribute="top" constant="360" id="xvM-Dt-9xW"/>
