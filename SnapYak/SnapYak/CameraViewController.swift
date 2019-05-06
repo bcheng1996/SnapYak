@@ -59,9 +59,12 @@ class CameraViewController: UIViewController {
     
     @IBAction func captureButtonAction(_ sender: Any) {
         cameraController.captureImage {(image, error) in
-            guard let image = image else {
+            guard var image = image else {
                 print(error)
                 return
+            }
+            if (self.cameraController.currentCameraPosition == CameraController.CameraPosition.front){
+                image = UIImage(cgImage: image.cgImage!, scale: UIScreen.main.scale, orientation: .leftMirrored)
             }
             self.capturedImage = image
             let dvc = self.storyboard?.instantiateViewController(withIdentifier: "MessageUploadViewController") as! MessageUploadViewController

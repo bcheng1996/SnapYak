@@ -14,6 +14,10 @@
 		9A077B4E226E930400F6A273 /* MessageUpload.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A077B4D226E930400F6A273 /* MessageUpload.storyboard */; };
 		9A077B52226E951700F6A273 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A077B51226E951700F6A273 /* GoogleService-Info.plist */; };
 		9A077B54226E95CD00F6A273 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A077B53226E95CD00F6A273 /* Main.storyboard */; };
+		9A68A808227F71B1003A6A12 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A68A807227F71B1003A6A12 /* DrawView.swift */; };
+		9A68A80A227F841E003A6A12 /* DrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A68A809227F841E003A6A12 /* DrawViewController.swift */; };
+		9A68A80C227FA3D9003A6A12 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A68A80B227FA3D9003A6A12 /* TextView.swift */; };
+		9A68A80E227FA75E003A6A12 /* MessageUploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A68A80D227FA75E003A6A12 /* MessageUploadView.swift */; };
 		9AFFFC892272512500EF2CBA /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFFFC882272512500EF2CBA /* CameraController.swift */; };
 		AB17D067226E8CF800C1FBA5 /* Yak.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB17D066226E8CF700C1FBA5 /* Yak.swift */; };
 		AB46CCC7226D3B9800FB64D9 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB46CCC6226D3B9800FB64D9 /* MessageCell.swift */; };
@@ -37,6 +41,10 @@
 		9A077B4D226E930400F6A273 /* MessageUpload.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MessageUpload.storyboard; sourceTree = "<group>"; };
 		9A077B51226E951700F6A273 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9A077B53226E95CD00F6A273 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		9A68A807227F71B1003A6A12 /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
+		9A68A809227F841E003A6A12 /* DrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewController.swift; sourceTree = "<group>"; };
+		9A68A80B227FA3D9003A6A12 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		9A68A80D227FA75E003A6A12 /* MessageUploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageUploadView.swift; sourceTree = "<group>"; };
 		9AFFFC882272512500EF2CBA /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		A48FC5444C24AFECFA9540DF /* Pods_SnapYak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapYak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB17D066226E8CF700C1FBA5 /* Yak.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Yak.swift; sourceTree = "<group>"; };
@@ -107,6 +115,10 @@
 				AB848731226512A2007E1862 /* MapViewController.swift */,
 				AB84872F2265128F007E1862 /* MessagesListViewController.swift */,
 				AB84873522651335007E1862 /* MessageUploadViewController.swift */,
+				9A68A80D227FA75E003A6A12 /* MessageUploadView.swift */,
+				9A68A807227F71B1003A6A12 /* DrawView.swift */,
+				9A68A80B227FA3D9003A6A12 /* TextView.swift */,
+				9A68A809227F841E003A6A12 /* DrawViewController.swift */,
 				AB8487332265131E007E1862 /* MessageViewController.swift */,
 				60BF07E7227E3E6300F16721 /* ModalViewController.swift */,
 				AB84871F226511AC007E1862 /* ViewController.swift */,
@@ -276,10 +288,14 @@
 				9A0435C1226EA8A2009430AA /* CameraViewController.swift in Sources */,
 				AB46CCC7226D3B9800FB64D9 /* MessageCell.swift in Sources */,
 				AB84871E226511AC007E1862 /* AppDelegate.swift in Sources */,
+				9A68A80A227F841E003A6A12 /* DrawViewController.swift in Sources */,
 				60BF07E8227E3E6300F16721 /* ModalViewController.swift in Sources */,
 				AB8487302265128F007E1862 /* MessagesListViewController.swift in Sources */,
+				9A68A80E227FA75E003A6A12 /* MessageUploadView.swift in Sources */,
 				AB84873622651335007E1862 /* MessageUploadViewController.swift in Sources */,
 				9AFFFC892272512500EF2CBA /* CameraController.swift in Sources */,
+				9A68A80C227FA3D9003A6A12 /* TextView.swift in Sources */,
+				9A68A808227F71B1003A6A12 /* DrawView.swift in Sources */,
 				AB848732226512A2007E1862 /* MapViewController.swift in Sources */,
 				AB8487342265131E007E1862 /* MessageViewController.swift in Sources */,
 				AB17D067226E8CF800C1FBA5 /* Yak.swift in Sources */,
