@@ -198,23 +198,60 @@
                                     <action selector="openComments:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DTC-zV-k3C"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFl-8f-uOa">
+                                <rect key="frame" x="323" y="80" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="TVY-RA-Nud"/>
+                                    <constraint firstAttribute="width" constant="45" id="jYm-Od-dLz"/>
+                                </constraints>
+                                <state key="normal" image="up"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMD-P2-MuA">
+                                <rect key="frame" x="325.5" y="125" width="40" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="sCS-P0-UP5"/>
+                                    <constraint firstAttribute="width" constant="40" id="zIc-sG-fHf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UXj-WY-bzG">
+                                <rect key="frame" x="323" y="140" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="P1F-l1-fWL"/>
+                                    <constraint firstAttribute="height" constant="45" id="jug-qi-ouH"/>
+                                </constraints>
+                                <state key="normal" image="down"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="UXj-WY-bzG" firstAttribute="centerX" secondItem="VFl-8f-uOa" secondAttribute="centerX" id="138-20-03a"/>
+                            <constraint firstItem="VFl-8f-uOa" firstAttribute="top" secondItem="oRW-ws-xQF" secondAttribute="bottom" constant="8" id="BB9-VJ-1pd"/>
                             <constraint firstItem="8b4-eo-Lvh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="BI3-Uw-Frv"/>
                             <constraint firstItem="oRW-ws-xQF" firstAttribute="leading" secondItem="8b4-eo-Lvh" secondAttribute="trailing" constant="-52" id="IBA-qK-2hB"/>
                             <constraint firstItem="x5p-lm-VhQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="153" id="MMw-cx-8Ik"/>
+                            <constraint firstItem="wMD-P2-MuA" firstAttribute="centerX" secondItem="VFl-8f-uOa" secondAttribute="centerX" id="R1R-hH-vdQ"/>
                             <constraint firstItem="oRW-ws-xQF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="7" id="Yim-t2-Rj0"/>
+                            <constraint firstItem="wMD-P2-MuA" firstAttribute="top" secondItem="VFl-8f-uOa" secondAttribute="bottom" id="cxg-26-exL"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VFl-8f-uOa" secondAttribute="trailing" constant="7" id="e03-pW-Egb"/>
                             <constraint firstItem="8b4-eo-Lvh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="e2s-FH-C1E"/>
+                            <constraint firstItem="VFl-8f-uOa" firstAttribute="centerX" secondItem="oRW-ws-xQF" secondAttribute="centerX" id="elG-b1-dpd"/>
                             <constraint firstItem="8b4-eo-Lvh" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="iBx-Qq-fkL"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="x5p-lm-VhQ" secondAttribute="bottom" constant="51" id="n5z-IL-bW8"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="x5p-lm-VhQ" secondAttribute="trailing" constant="153" id="pSk-P1-LDL"/>
+                            <constraint firstItem="UXj-WY-bzG" firstAttribute="top" secondItem="VFl-8f-uOa" secondAttribute="bottom" constant="15" id="qE3-JB-zRW"/>
                             <constraint firstAttribute="trailing" secondItem="8b4-eo-Lvh" secondAttribute="trailing" id="tyg-Az-py1"/>
+                            <constraint firstItem="UXj-WY-bzG" firstAttribute="leading" secondItem="VFl-8f-uOa" secondAttribute="leading" id="zkg-B9-E4e"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="downvoteButton" destination="UXj-WY-bzG" id="IFN-fa-Csw"/>
                         <outlet property="imageView" destination="8b4-eo-Lvh" id="VU5-bf-kPq"/>
+                        <outlet property="upvoteButton" destination="VFl-8f-uOa" id="GOg-JN-Nmd"/>
+                        <outlet property="votesLabel" destination="wMD-P2-MuA" id="YEr-6v-tWD"/>
                         <segue destination="efk-Mm-Xx6" kind="show" identifier="ShowComments" id="rte-Z6-7c2"/>
                     </connections>
                 </viewController>
