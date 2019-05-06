@@ -19,6 +19,7 @@ struct Yak {
     var location: GeoPoint
     var time_stamp: Date
     var likes: Int
+    var comments: [String]
     
     var dictionary: [String: Any] {
         return [
@@ -26,7 +27,8 @@ struct Yak {
             "image_url": image_url,
             "location": location,
             "time_stamp": time_stamp,
-            "likes": likes
+            "likes": likes,
+            "comments": comments
         ]
     }
 }
@@ -40,7 +42,11 @@ extension Yak : DocumentSerializable {
             let time_stamp = dictionary["time_stamp"] as? Timestamp,
             let likes = dictionary["likes"] as? Int
             else{return nil}
-        self.init(user_id: user_id, image_url: image_url, location: location, time_stamp: time_stamp.dateValue(), likes: likes)
+        if let comments = dictionary["comments"] as? [String] {
+            self.init(user_id: user_id, image_url: image_url, location: location, time_stamp: time_stamp.dateValue(), likes: likes, comments: comments)
+        } else {
+            self.init(user_id: user_id, image_url: image_url, location: location, time_stamp: time_stamp.dateValue(), likes: likes, comments: [])
+        }
     }
 }
 

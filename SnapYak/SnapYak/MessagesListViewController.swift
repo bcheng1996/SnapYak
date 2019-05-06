@@ -13,13 +13,22 @@ import Firebase
 class MessagesListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet var tableView: UITableView!
-    let radius: Double = 10000000
+    var radius: Double = 10000000
     var messages: [Yak]! // This will be where our message data is held
     var imageCache: [String: Data]!
     var locManager: CLLocationManager!
     var db: Database!
     var storage: StorageReference!
     var refresher: UIRefreshControl!
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.radius = UserDefaults.standard.double(forKey: "radius")
+        if self.radius == 0 {
+            self.radius = 10000000
+            UserDefaults.standard.set(10000000, forKey: "radius")
+        }
+        checkForNewYaks()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +45,12 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         refresher.attributedTitle = NSAttributedString(string: "Pull to Refresh")
         refresher.tintColor = UIColor(red: 1.00, green: 0.20, blue: 0.50, alpha: 1.0)
         refresher.addTarget(self, action: #selector(checkForNewYaks), for: .valueChanged)
+    
+        self.radius = UserDefaults.standard.double(forKey: "radius")
+        if self.radius == 0 {
+            self.radius = 10000000
+            UserDefaults.standard.set(10000000, forKey: "radius")
+        }
         
         self.locManager.requestLocation()
         

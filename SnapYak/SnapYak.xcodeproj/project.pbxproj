@@ -11,6 +11,9 @@
 		601EFCD0227F8DF2001D676A /* MessageAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601EFCCF227F8DF2001D676A /* MessageAnnotationView.swift */; };
 		601EFCD4227F96A4001D676A /* yak.png in Resources */ = {isa = PBXBuildFile; fileRef = 601EFCD3227F96A4001D676A /* yak.png */; };
 		601EFCD6227F9E74001D676A /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 601EFCD5227F9E74001D676A /* Settings.storyboard */; };
+		606FA1D4227FE2C500020663 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FA1D3227FE2C500020663 /* CommentsViewController.swift */; };
+		606FA1D6227FEB8C00020663 /* CommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FA1D5227FEB8B00020663 /* CommentsTableViewCell.swift */; };
+		606FA1D82280902700020663 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FA1D72280902700020663 /* SettingsViewController.swift */; };
 		60BF07E8227E3E6300F16721 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BF07E7227E3E6300F16721 /* ModalViewController.swift */; };
 		60EF0C4622765E0F00DEEB08 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60EF0C4522765E0F00DEEB08 /* Map.storyboard */; };
 		71254DF896D72567B049E292 /* Pods_SnapYak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A48FC5444C24AFECFA9540DF /* Pods_SnapYak.framework */; };
@@ -42,6 +45,9 @@
 		601EFCCF227F8DF2001D676A /* MessageAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAnnotationView.swift; sourceTree = "<group>"; };
 		601EFCD3227F96A4001D676A /* yak.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = yak.png; path = ../../../../../../../../Downloads/yak.png; sourceTree = "<group>"; };
 		601EFCD5227F9E74001D676A /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		606FA1D3227FE2C500020663 /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		606FA1D5227FEB8B00020663 /* CommentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsTableViewCell.swift; sourceTree = "<group>"; };
+		606FA1D72280902700020663 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		60BF07E7227E3E6300F16721 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		60EF0C4522765E0F00DEEB08 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		8759574C1E27EE179FD18853 /* Pods-SnapYak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapYak.release.xcconfig"; path = "Target Support Files/Pods-SnapYak/Pods-SnapYak.release.xcconfig"; sourceTree = "<group>"; };
@@ -131,7 +137,10 @@
 				9A68A80B227FA3D9003A6A12 /* TextView.swift */,
 				9A68A809227F841E003A6A12 /* DrawViewController.swift */,
 				AB8487332265131E007E1862 /* MessageViewController.swift */,
+				606FA1D3227FE2C500020663 /* CommentsViewController.swift */,
+				606FA1D5227FEB8B00020663 /* CommentsTableViewCell.swift */,
 				60BF07E7227E3E6300F16721 /* ModalViewController.swift */,
+				606FA1D72280902700020663 /* SettingsViewController.swift */,
 				AB84871F226511AC007E1862 /* ViewController.swift */,
 				AB46CCC6226D3B9800FB64D9 /* MessageCell.swift */,
 				AB8487372265135D007E1862 /* FirebaseModel.swift */,
@@ -300,11 +309,14 @@
 			files = (
 				AB848720226511AC007E1862 /* ViewController.swift in Sources */,
 				601EFCCE227F8D97001D676A /* MessageAnnotation.swift in Sources */,
+				606FA1D82280902700020663 /* SettingsViewController.swift in Sources */,
 				9A0435C1226EA8A2009430AA /* CameraViewController.swift in Sources */,
 				AB46CCC7226D3B9800FB64D9 /* MessageCell.swift in Sources */,
 				AB84871E226511AC007E1862 /* AppDelegate.swift in Sources */,
 				9A68A80A227F841E003A6A12 /* DrawViewController.swift in Sources */,
 				60BF07E8227E3E6300F16721 /* ModalViewController.swift in Sources */,
+				606FA1D6227FEB8C00020663 /* CommentsTableViewCell.swift in Sources */,
+				606FA1D4227FE2C500020663 /* CommentsViewController.swift in Sources */,
 				AB8487302265128F007E1862 /* MessagesListViewController.swift in Sources */,
 				9A68A80E227FA75E003A6A12 /* MessageUploadView.swift in Sources */,
 				601EFCD0227F8DF2001D676A /* MessageAnnotationView.swift in Sources */,
