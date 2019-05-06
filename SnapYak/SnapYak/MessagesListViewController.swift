@@ -147,6 +147,29 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
             cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
         }
         
+        let upvoted:[String] = (UserDefaults.standard.array(forKey: "upvoted") ?? []) as! [String]
+        let downvoted:[String] = (UserDefaults.standard.array(forKey: "downvoted") ?? []) as! [String]
+        
+        if upvoted.contains(yak1.image_url) {
+            if let img = UIImage(named: "upgreen") {
+                cell.upVoteButton.setImage(img, for: .normal)
+            }
+        } else {
+            if let img = UIImage(named: "up") {
+                cell.upVoteButton.setImage(img, for: .normal)
+            }
+        }
+        
+        if downvoted.contains(yak1.image_url) {
+            if let img = UIImage(named: "downred") {
+                cell.downVoteButton.setImage(img, for: .normal)
+            }
+        } else {
+            if let img = UIImage(named: "down") {
+                cell.downVoteButton.setImage(img, for: .normal)
+            }
+        }
+        
         cell.upVoteButton.addTarget(self, action: #selector(upVote), for: .touchUpInside)
         cell.downVoteButton.addTarget(self, action: #selector(downVote), for: .touchUpInside)
         
@@ -155,40 +178,106 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
     
     @objc
     func upVote(sender: UIButton) {
+        var upvoted:[String] = (UserDefaults.standard.array(forKey: "upvoted") ?? []) as! [String]
+        var downvoted:[String] = (UserDefaults.standard.array(forKey: "downvoted") ?? []) as! [String]
         var yak = self.messages[sender.tag]
-        yak.likes = yak.likes + 1
-        // Since this is swift and the var is a struct
-        // we need to replace the old yak with the new yak
-        // with the updated vote count
-        // otherwise the original in the array wont update
-        self.messages[sender.tag] = yak
-        let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MessageCell
-        cell.votesLabel.text = "\(yak.likes)"
+        var unupvoted = false
         
-        if yak.likes >= 0 {
-            cell.votesLabel.textColor = UIColor(hue: 0.3472, saturation: 1, brightness: 0.57, alpha: 1.0)
-        } else {
-            cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
+        if upvoted.contains(yak.image_url) {
+            yak.likes = yak.likes - 1
+            upvoted = upvoted.filter { $0 != yak.image_url }
+            UserDefaults.standard.set(upvoted, forKey: "upvoted")
+            unupvoted = true
+            self.messages[sender.tag] = yak
+            let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MessageCell
+            cell.votesLabel.text = "\(yak.likes)"
+            
+            if yak.likes >= 0 {
+                cell.votesLabel.textColor = UIColor(hue: 0.3472, saturation: 1, brightness: 0.57, alpha: 1.0)
+            } else {
+                cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
+            }
+            
+            db.updateYakVote(targetYak: yak)
+        }
+        if !upvoted.contains(yak.image_url) && !unupvoted {
+            if downvoted.contains(yak.image_url) {
+                yak.likes = yak.likes + 1
+                downvoted = downvoted.filter { $0 != yak.image_url }
+            }
+            yak.likes = yak.likes + 1
+            // Since this is swift and the var is a struct
+            // we need to replace the old yak with the new yak
+            // with the updated vote count
+            // otherwise the original in the array wont update
+            self.messages[sender.tag] = yak
+            let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MessageCell
+            cell.votesLabel.text = "\(yak.likes)"
+            
+            if yak.likes >= 0 {
+                cell.votesLabel.textColor = UIColor(hue: 0.3472, saturation: 1, brightness: 0.57, alpha: 1.0)
+            } else {
+                cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
+            }
+            
+            db.updateYakVote(targetYak: yak)
+            
+            upvoted.append(yak.image_url)
+            UserDefaults.standard.set(upvoted, forKey: "upvoted")
+            UserDefaults.standard.set(downvoted, forKey: "downvoted")
         }
         
-        db.updateYakVote(targetYak: yak)
+        self.tableView.reloadData()
     }
     
     @objc
     func downVote(sender: UIButton) {
+        var upvoted:[String] = (UserDefaults.standard.array(forKey: "upvoted") ?? []) as! [String]
+        var downvoted:[String] = (UserDefaults.standard.array(forKey: "downvoted") ?? []) as! [String]
         var yak = self.messages[sender.tag]
-        yak.likes = yak.likes - 1
-        self.messages[sender.tag] = yak
-        let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MessageCell
-        cell.votesLabel.text = "\(yak.likes)"
+        var undownvoted = false
         
-        if yak.likes >= 0 {
-            cell.votesLabel.textColor = UIColor(hue: 0.3472, saturation: 1, brightness: 0.57, alpha: 1.0)
-        } else {
-            cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
+        if downvoted.contains(yak.image_url) {
+            yak.likes = yak.likes + 1
+            downvoted = downvoted.filter { $0 != yak.image_url }
+            UserDefaults.standard.set(downvoted, forKey: "downvoted")
+            undownvoted = true
+            self.messages[sender.tag] = yak
+            let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MessageCell
+            cell.votesLabel.text = "\(yak.likes)"
+            
+            if yak.likes >= 0 {
+                cell.votesLabel.textColor = UIColor(hue: 0.3472, saturation: 1, brightness: 0.57, alpha: 1.0)
+            } else {
+                cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
+            }
+            
+            db.updateYakVote(targetYak: yak)
+        }
+        if !downvoted.contains(yak.image_url) && !undownvoted {
+            if upvoted.contains(yak.image_url) {
+                yak.likes = yak.likes - 1
+                upvoted = upvoted.filter { $0 != yak.image_url }
+            }
+            yak.likes = yak.likes - 1
+            self.messages[sender.tag] = yak
+            let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MessageCell
+            cell.votesLabel.text = "\(yak.likes)"
+        
+            if yak.likes >= 0 {
+                cell.votesLabel.textColor = UIColor(hue: 0.3472, saturation: 1, brightness: 0.57, alpha: 1.0)
+            } else {
+                cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
+            }
+        
+            db.updateYakVote(targetYak: yak)
+        
+            downvoted.append(yak.image_url)
+            UserDefaults.standard.set(upvoted, forKey: "upvoted")
+            UserDefaults.standard.set(downvoted, forKey: "downvoted")
         }
         
-        db.updateYakVote(targetYak: yak)
+        self.tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
