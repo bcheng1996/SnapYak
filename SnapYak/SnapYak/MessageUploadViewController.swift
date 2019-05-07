@@ -320,7 +320,7 @@ class MessageUploadViewController: UIViewController {
                     if let error = error {
                         print("Error uploading image: \(error.localizedDescription)")
                     } else {
-                        let newYak = Yak(user_id: "B1WRIde8IPTZuWoTsiBU", image_url: fileName, location: GeoPoint(latitude: self.currentLocation.coordinate.latitude, longitude: self.currentLocation.coordinate.longitude), time_stamp: Date(), likes: 0)
+                        let newYak = Yak(user_id: "B1WRIde8IPTZuWoTsiBU", image_url: fileName, location: GeoPoint(latitude: self.currentLocation.coordinate.latitude, longitude: self.currentLocation.coordinate.longitude), time_stamp: Date(), likes: 0, comments: [])
                         self.db.uploadYak(yak: newYak)
                         
                         print("image uploaded")

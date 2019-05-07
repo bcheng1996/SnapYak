@@ -19,6 +19,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var messages: [Yak]!
     var db: Database!
     var storage: StorageReference!
+    var imageCache: [String: Data]!
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -41,6 +42,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
         self.db = Database()
+        self.imageCache = [:]
         
         if let userLocation = locManager.location {
             let viewRegion = MKCoordinateRegion(center: userLocation.coordinate, latitudinalMeters: 200, longitudinalMeters: 200)
@@ -89,7 +91,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 let newVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! MessageViewController
                 newVC.yak = data
                 
-                self.present(newVC, animated: true)
+                if (self.imageCache[data.image_url] != nil){
+                    newVC.cachedImage = self.imageCache[data.image_url]
+                    
+                    print("Pulling from image cache: \(data.image_url)")
+                    self.present(newVC, animated: true, completion: nil)
+                } else {
+                    
+                    print("Making Request to database for image")
+                    db.fetchImage(imageURL: data.image_url) { (imgData) in
+                        newVC.cachedImage = imgData
+                        print("Caching Image: \(data.image_url)")
+                        self.imageCache[data.image_url] = imgData
+                        
+                        self.present(newVC, animated: true, completion: nil)
+                    }
+                }
+               
             }
         }
     }

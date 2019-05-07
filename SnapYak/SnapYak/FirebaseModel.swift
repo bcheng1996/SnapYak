@@ -135,6 +135,28 @@ class Database {
             }
         }
     }
+    
+    public func updateComments(targetYak: Yak) {
+        self.db.collection("Yaks").getDocuments { (rawSnapshot, error) in
+            if error != nil {
+                print("Error fetching yaks, check connection")
+            } else {
+                if let snapshot = rawSnapshot {
+                    for doc in snapshot.documents {
+                        let rawYak = doc.data()
+                        let yak = Yak(dictionary: rawYak)
+                        
+                        if (targetYak.image_url == yak?.image_url){
+                            self.db.collection("Yaks")
+                                .document(doc.documentID)
+                                .updateData(["comments" : targetYak.comments])
+                            break
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 

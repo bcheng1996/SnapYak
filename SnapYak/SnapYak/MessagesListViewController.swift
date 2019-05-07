@@ -13,13 +13,23 @@ import Firebase
 class MessagesListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet var tableView: UITableView!
-    let radius: Double = 10000000
+    @IBOutlet var segmentedControl: UISegmentedControl!
+    var radius: Double = 10000000
     var messages: [Yak]! // This will be where our message data is held
     var imageCache: [String: Data]!
     var locManager: CLLocationManager!
     var db: Database!
     var storage: StorageReference!
     var refresher: UIRefreshControl!
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.radius = UserDefaults.standard.double(forKey: "radius")
+        if self.radius == 0 {
+            self.radius = 10000000
+            UserDefaults.standard.set(10000000, forKey: "radius")
+        }
+        checkForNewYaks()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +43,18 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         self.db = Database()
         self.refresher = UIRefreshControl()
         self.tableView.addSubview(refresher)
-        refresher.attributedTitle = NSAttributedString(string: "Pull to Refresh")
-        refresher.tintColor = UIColor(red: 1.00, green: 0.20, blue: 0.50, alpha: 1.0)
-        refresher.addTarget(self, action: #selector(checkForNewYaks), for: .valueChanged)
+        
+        self.refresher.attributedTitle = NSAttributedString(string: "Pull to Refresh")
+        self.refresher.tintColor = UIColor(red: 1.00, green: 0.20, blue: 0.50, alpha: 1.0)
+        self.refresher.addTarget(self, action: #selector(checkForNewYaks), for: .valueChanged)
+        
+        self.segmentedControl.addTarget(self, action: #selector(handleSort), for: UIControl.Event.valueChanged)
+    
+        self.radius = UserDefaults.standard.double(forKey: "radius")
+        if self.radius == 0 {
+            self.radius = 10000000
+            UserDefaults.standard.set(10000000, forKey: "radius")
+        }
         
         self.locManager.requestLocation()
         
@@ -52,23 +71,12 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
             db.fetchYaks(currentLocation: loc, radius: self.radius) { (yaks) in
                 // Sort the incoming yaks by distance to current location
                 self.messages = yaks
-                self.sortMessages(loc: loc)
-                self.fillImageCache()
+                self.handleSort()
                 self.tableView.reloadData()
                 self.refresher.endRefreshing()
             }
         } else {
             self.refresher.endRefreshing()
-        }
-    }
-    
-    func fillImageCache() {
-        for yak in self.messages {
-            if (self.imageCache[yak.image_url] == nil){
-                db.fetchImage(imageURL: yak.image_url) { (data) in
-                    self.imageCache[yak.image_url] = data
-                }
-            }
         }
     }
     
@@ -81,12 +89,22 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         
         if (self.imageCache[data.image_url] != nil){
             newVC.cachedImage = self.imageCache[data.image_url]
-        }
-        
-        self.present(newVC, animated: true) {
-            // Once the view returns from presenting, unselect the row that was
-            // previously selected
-            self.tableView.deselectRow(at: indexPath, animated: true)
+            
+            self.present(newVC, animated: true) {
+                // Once the view returns from presenting, unselect the row that was
+                self.tableView.deselectRow(at: indexPath, animated: true)
+            }
+            
+        } else {
+            self.db.fetchImage(imageURL: data.image_url) { (imageData) in
+                self.imageCache[data.image_url] = imageData
+                newVC.cachedImage = imageData
+                self.present(newVC, animated: true) {
+                    // Once the view returns from presenting, unselect the row that was
+                    // previously selected and cache the image
+                    self.tableView.deselectRow(at: indexPath, animated: true)
+                }
+            }
         }
     }
     
@@ -147,6 +165,29 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
             cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
         }
         
+        let upvoted:[String] = (UserDefaults.standard.array(forKey: "upvoted") ?? []) as! [String]
+        let downvoted:[String] = (UserDefaults.standard.array(forKey: "downvoted") ?? []) as! [String]
+        
+        if upvoted.contains(yak1.image_url) {
+            if let img = UIImage(named: "upgreen") {
+                cell.upVoteButton.setImage(img, for: .normal)
+            }
+        } else {
+            if let img = UIImage(named: "up") {
+                cell.upVoteButton.setImage(img, for: .normal)
+            }
+        }
+        
+        if downvoted.contains(yak1.image_url) {
+            if let img = UIImage(named: "downred") {
+                cell.downVoteButton.setImage(img, for: .normal)
+            }
+        } else {
+            if let img = UIImage(named: "down") {
+                cell.downVoteButton.setImage(img, for: .normal)
+            }
+        }
+        
         cell.upVoteButton.addTarget(self, action: #selector(upVote), for: .touchUpInside)
         cell.downVoteButton.addTarget(self, action: #selector(downVote), for: .touchUpInside)
         
@@ -155,52 +196,113 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
     
     @objc
     func upVote(sender: UIButton) {
+        var upvoted:[String] = (UserDefaults.standard.array(forKey: "upvoted") ?? []) as! [String]
+        var downvoted:[String] = (UserDefaults.standard.array(forKey: "downvoted") ?? []) as! [String]
         var yak = self.messages[sender.tag]
-        yak.likes = yak.likes + 1
-        // Since this is swift and the var is a struct
-        // we need to replace the old yak with the new yak
-        // with the updated vote count
-        // otherwise the original in the array wont update
-        self.messages[sender.tag] = yak
-        let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MessageCell
-        cell.votesLabel.text = "\(yak.likes)"
+        var unupvoted = false
         
-        if yak.likes >= 0 {
-            cell.votesLabel.textColor = UIColor(hue: 0.3472, saturation: 1, brightness: 0.57, alpha: 1.0)
-        } else {
-            cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
+        if upvoted.contains(yak.image_url) {
+            yak.likes = yak.likes - 1
+            upvoted = upvoted.filter { $0 != yak.image_url }
+            UserDefaults.standard.set(upvoted, forKey: "upvoted")
+            unupvoted = true
+            self.messages[sender.tag] = yak
+            let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MessageCell
+            cell.votesLabel.text = "\(yak.likes)"
+            
+            if yak.likes >= 0 {
+                cell.votesLabel.textColor = UIColor(hue: 0.3472, saturation: 1, brightness: 0.57, alpha: 1.0)
+            } else {
+                cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
+            }
+            
+            db.updateYakVote(targetYak: yak)
+        }
+        if !upvoted.contains(yak.image_url) && !unupvoted {
+            if downvoted.contains(yak.image_url) {
+                yak.likes = yak.likes + 1
+                downvoted = downvoted.filter { $0 != yak.image_url }
+            }
+            yak.likes = yak.likes + 1
+            // Since this is swift and the var is a struct
+            // we need to replace the old yak with the new yak
+            // with the updated vote count
+            // otherwise the original in the array wont update
+            self.messages[sender.tag] = yak
+            let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MessageCell
+            cell.votesLabel.text = "\(yak.likes)"
+            
+            if yak.likes >= 0 {
+                cell.votesLabel.textColor = UIColor(hue: 0.3472, saturation: 1, brightness: 0.57, alpha: 1.0)
+            } else {
+                cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
+            }
+            
+            db.updateYakVote(targetYak: yak)
+            
+            upvoted.append(yak.image_url)
+            UserDefaults.standard.set(upvoted, forKey: "upvoted")
+            UserDefaults.standard.set(downvoted, forKey: "downvoted")
         }
         
-        db.updateYakVote(targetYak: yak)
+        self.tableView.reloadData()
     }
     
     @objc
     func downVote(sender: UIButton) {
+        var upvoted:[String] = (UserDefaults.standard.array(forKey: "upvoted") ?? []) as! [String]
+        var downvoted:[String] = (UserDefaults.standard.array(forKey: "downvoted") ?? []) as! [String]
         var yak = self.messages[sender.tag]
-        yak.likes = yak.likes - 1
-        self.messages[sender.tag] = yak
-        let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MessageCell
-        cell.votesLabel.text = "\(yak.likes)"
+        var undownvoted = false
         
-        if yak.likes >= 0 {
-            cell.votesLabel.textColor = UIColor(hue: 0.3472, saturation: 1, brightness: 0.57, alpha: 1.0)
-        } else {
-            cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
+        if downvoted.contains(yak.image_url) {
+            yak.likes = yak.likes + 1
+            downvoted = downvoted.filter { $0 != yak.image_url }
+            UserDefaults.standard.set(downvoted, forKey: "downvoted")
+            undownvoted = true
+            self.messages[sender.tag] = yak
+            let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MessageCell
+            cell.votesLabel.text = "\(yak.likes)"
+            
+            if yak.likes >= 0 {
+                cell.votesLabel.textColor = UIColor(hue: 0.3472, saturation: 1, brightness: 0.57, alpha: 1.0)
+            } else {
+                cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
+            }
+            
+            db.updateYakVote(targetYak: yak)
+        }
+        if !downvoted.contains(yak.image_url) && !undownvoted {
+            if upvoted.contains(yak.image_url) {
+                yak.likes = yak.likes - 1
+                upvoted = upvoted.filter { $0 != yak.image_url }
+            }
+            yak.likes = yak.likes - 1
+            self.messages[sender.tag] = yak
+            let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MessageCell
+            cell.votesLabel.text = "\(yak.likes)"
+        
+            if yak.likes >= 0 {
+                cell.votesLabel.textColor = UIColor(hue: 0.3472, saturation: 1, brightness: 0.57, alpha: 1.0)
+            } else {
+                cell.votesLabel.textColor = UIColor(hue: 0, saturation: 1, brightness: 0.53, alpha: 1.0)
+            }
+        
+            db.updateYakVote(targetYak: yak)
+        
+            downvoted.append(yak.image_url)
+            UserDefaults.standard.set(upvoted, forKey: "upvoted")
+            UserDefaults.standard.set(downvoted, forKey: "downvoted")
         }
         
-        db.updateYakVote(targetYak: yak)
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Nearby Yaks"
+        self.tableView.reloadData()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         db.fetchYaks(currentLocation: locations.first!, radius: self.radius) { (yaks) in
             self.messages = yaks
-            self.sortMessages(loc: locations.first!)
-            self.fillImageCache()
+            self.handleSort()
             self.tableView.reloadData()
         }
     }
@@ -216,7 +318,7 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func sortMessages(loc: CLLocation){
+    func sortMessagesByLocation(loc: CLLocation){
         self.messages = messages.sorted(by: { (yak1, yak2) -> Bool in
             let yak1Coord = CLLocation(latitude: yak1.location.latitude, longitude: yak1.location.longitude)
             let yak2Coord = CLLocation(latitude: yak2.location.latitude, longitude: yak2.location.longitude)
@@ -229,6 +331,27 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
                 return false
             }
         })
+    }
+    
+    func sortMessagesByLikes(){
+        self.messages = messages.sorted(by: { (yak1, yak2) -> Bool in
+            if (yak1.likes > yak2.likes){
+                return true
+            } else {
+                return false
+            }
+        })
+    }
+    
+    @objc func handleSort() {
+        if (self.segmentedControl.selectedSegmentIndex == 0){
+            if let loc = self.locManager.location {
+                self.sortMessagesByLocation(loc: loc)
+            }
+        } else {
+            self.sortMessagesByLikes()
+        }
+        self.tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
