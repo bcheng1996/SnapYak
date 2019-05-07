@@ -71,7 +71,7 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
             db.fetchYaks(currentLocation: loc, radius: self.radius) { (yaks) in
                 // Sort the incoming yaks by distance to current location
                 self.messages = yaks
-                self.sortMessagesByLocation(loc: loc)
+                self.handleSort()
                 self.tableView.reloadData()
                 self.refresher.endRefreshing()
             }
@@ -302,7 +302,7 @@ class MessagesListViewController: UIViewController, UITableViewDelegate, UITable
         
         db.fetchYaks(currentLocation: locations.first!, radius: self.radius) { (yaks) in
             self.messages = yaks
-            self.sortMessagesByLocation(loc: locations.first!)
+            self.handleSort()
             self.tableView.reloadData()
         }
     }
