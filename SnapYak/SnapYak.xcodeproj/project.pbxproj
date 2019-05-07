@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		601EFCCE227F8D97001D676A /* MessageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601EFCCD227F8D97001D676A /* MessageAnnotation.swift */; };
 		601EFCD0227F8DF2001D676A /* MessageAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601EFCCF227F8DF2001D676A /* MessageAnnotationView.swift */; };
-		601EFCD4227F96A4001D676A /* yak.png in Resources */ = {isa = PBXBuildFile; fileRef = 601EFCD3227F96A4001D676A /* yak.png */; };
 		60BF07E8227E3E6300F16721 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BF07E7227E3E6300F16721 /* ModalViewController.swift */; };
 		60EF0C4622765E0F00DEEB08 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60EF0C4522765E0F00DEEB08 /* Map.storyboard */; };
 		71254DF896D72567B049E292 /* Pods_SnapYak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A48FC5444C24AFECFA9540DF /* Pods_SnapYak.framework */; };
@@ -216,7 +215,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				601EFCD4227F96A4001D676A /* yak.png in Resources */,
 				9A077B54226E95CD00F6A273 /* Main.storyboard in Resources */,
 				60EF0C4622765E0F00DEEB08 /* Map.storyboard in Resources */,
 				9A077B4E226E930400F6A273 /* MessageUpload.storyboard in Resources */,
@@ -451,14 +449,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HV4B5F752N;
+				DEVELOPMENT_TEAM = FZ64HQ5AA3;
 				INFOPLIST_FILE = SnapYak/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = group34.SnapYak1;
+				PRODUCT_BUNDLE_IDENTIFIER = group34.SnapYak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -471,14 +469,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HV4B5F752N;
+				DEVELOPMENT_TEAM = FZ64HQ5AA3;
 				INFOPLIST_FILE = SnapYak/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = group34.SnapYak1;
+				PRODUCT_BUNDLE_IDENTIFIER = group34.SnapYak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
