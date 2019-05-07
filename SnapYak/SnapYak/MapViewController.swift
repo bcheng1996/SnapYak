@@ -83,9 +83,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let annotationView = MessageAnnotationView(annotation: annotation, reuseIdentifier: "Message")
-        annotationView.canShowCallout = true
-        return annotationView
+        if (!annotation.isKind(of: MKUserLocation.self)) {
+            let annotationView = MessageAnnotationView(annotation: annotation, reuseIdentifier: "Message")
+            annotationView.canShowCallout = true
+            return annotationView
+        }
+        return nil
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
