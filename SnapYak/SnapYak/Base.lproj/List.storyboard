@@ -378,7 +378,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6R9-IN-wnx"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="List" id="ce3-te-Xda"/>
+                    <tabBarItem key="tabBarItem" title="List" image="list tab icon" id="ce3-te-Xda"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="segmentedControl" destination="ezW-g2-zfn" id="NGL-FS-NVa"/>
@@ -394,6 +394,7 @@
     <resources>
         <image name="comments" width="100" height="100"/>
         <image name="down" width="100" height="100"/>
+        <image name="list tab icon" width="30" height="30"/>
         <image name="up" width="100" height="100"/>
     </resources>
 </document>

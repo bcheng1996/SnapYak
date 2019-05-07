@@ -54,7 +54,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DYe-3u-C1z"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" id="Z4P-yU-FUV"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="setting tab icon" id="Z4P-yU-FUV"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="textField" destination="gFg-x3-uxj" id="lBs-iD-DeC"/>
@@ -65,4 +65,7 @@
             <point key="canvasLocation" x="-36.231884057971016" y="72.991071428571431"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="setting tab icon" width="30" height="30"/>
+    </resources>
 </document>

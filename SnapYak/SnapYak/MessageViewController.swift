@@ -25,7 +25,16 @@ class MessageViewController: UIViewController {
         if cachedImage != nil {
             self.imageView.contentMode = .scaleAspectFill
             self.imageView.image = UIImage(data: cachedImage!)
-        } 
+        }  else {
+            // This shouldn't be needed. The caller of the VC should
+            // supply the image from a fetch or cache but this is here
+            // for redundancy. Be careful to not over-fetch. It will
+            // use up all Firebase quotas
+            db.fetchImage(imageURL: self.yak!.image_url) { (data) in
+                self.imageView.contentMode = .scaleAspectFill
+                self.imageView.image = UIImage(data: data)
+            }
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
