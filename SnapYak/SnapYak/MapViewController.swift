@@ -15,7 +15,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     @IBOutlet var mapView: MKMapView!
     var locManager: CLLocationManager!
-    let radius: Double = 5000
+    var radius: Double!
     var messages: [Yak]!
     var db: Database!
     var storage: StorageReference!
@@ -36,7 +36,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.radius = UserDefaults.standard.double(forKey: "radius")
+        if self.radius == 0 {
+            self.radius = 10000000
+            UserDefaults.standard.set(10000000, forKey: "radius")
+        }
         self.locManager = CLLocationManager()
         mapView.delegate = self
         locManager.delegate = self

@@ -32,6 +32,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             self.radius = 10000000
             UserDefaults.standard.set(10000000, forKey: "radius")
         }
-        textField.text = String(Int(radius))
+        textField.text = String(Double(radius))
     }
 }
