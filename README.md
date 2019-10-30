@@ -1,1 +1,2 @@
 # SnapYak
+Snapchat + Yikyak
